@@ -10,8 +10,7 @@
 		
 var fps = 50;
 var music = new Audio('bergur_music.mp3');
-var wilhelm_scream = new Audio('wilhelm_scream.mp3');
-wilhelm_scream.volume = 0.25;
+
 var example;
 var context;
 var canvaswidth;
@@ -26,6 +25,7 @@ var refreshRate = 1000/fps;
 var speed = 100/fps;
 var countShotBirds = 0;
 var countAmmunition = 100;
+birdKind = "horiz";
 
 var html5_audiotypes={
 	"mp3": "audio/mpeg",
@@ -36,7 +36,8 @@ var html5_audiotypes={
 
 var shot=createsoundbite("sniper_shot.wav");
 	shot.volume=0.05;
-
+var wilhelm_scream=createsoundbite('wilhelm_scream.mp3');
+	wilhelm_scream.volume = 0.25;
 function createsoundbite(sound){
 	var html5audio=document.createElement('audio');
 	$('#player').append(html5audio);
@@ -113,7 +114,7 @@ canvaswidth;
         && (birdypos-birdsize/2)<y && y<(birdypos+birdsize/2) 
         && countAmmunition > 0) {
             // some winning condition
-			wilhelm_scream.play();
+			wilhelm_scream.playclip();
             countShotBirds++;
             createRandomBird();
         }
@@ -123,6 +124,13 @@ canvaswidth;
 
 
 function createRandomBird() {
+			var type = Math.random()<0.5;
+			if (type){
+				birdKind = "horiz";
+			}
+			else {
+				birdKind = "vertical";
+			}
 			var random = Math.floor(Math.random()*canvaswidth);
             birdxpos=random;
             random = Math.floor(Math.random()*canvasheight);
@@ -198,8 +206,10 @@ function clearBird() {
     context.fill(); 
 }
 
-function moveBird() {   
-    var random =Math.floor(Math.random()*45);
+function moveBird() {
+	var random =Math.floor(Math.random()*45);
+	if(birdKind=="horiz"){
+    
     if(random == 5) updown = "up";
     if(random == 6) updown = "down";
     if(updown =="up") birdypos -= speed;
@@ -207,6 +217,17 @@ function moveBird() {
 
     if(leftright =="right") birdxpos += speed;
     else birdxpos -= speed;
+	}
+	else {
+   
+    if(random == 5) leftright = "up";
+    if(random == 6) leftright = "down";
+    if(updown =="up") birdypos -= speed;
+    else birdypos += speed;
+
+    if(leftright =="right") birdxpos += speed;
+    else birdxpos -= speed;
+	}
 }
 
 function collisionWithWalls() {
