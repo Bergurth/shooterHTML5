@@ -34,6 +34,9 @@ var html5_audiotypes={
 	"wav": "audio/wav"
 }
 
+var shot=createsoundbite("sniper_shot.wav");
+	shot.volume=0.05;
+
 function createsoundbite(sound){
 	var html5audio=document.createElement('audio');
 	$('#player').append(html5audio);
@@ -61,12 +64,33 @@ function createsoundbite(sound){
 
 $(document).ready(function() {
 
-	var shot=createsoundbite("sniper_shot.wav");
-	shot.volume=0.05; // var alltof hátt
-	//var crank=createsoundbite("crank.mp3", "crank.ogg")
-	
+
 	music.play();
     example = document.getElementById('example'); // ná canvas!
+	var t=setInterval("gameLoop()",refreshRate);
+	initiateGame(example);
+	
+	
+});
+
+function initiateGame(example) {
+
+fps = 50;
+context;
+canvaswidth;
+ canvasheight;
+ birdxpos = 100;
+ birdypos = 100;
+ birdsize = 20;
+ birdcolor = "rgb(255,0,0)";
+ updown = "up";
+ leftright="left";
+ refreshRate = 1000/fps;
+ speed = 100/fps;
+ countShotBirds = 0;
+ countAmmunition = 100;
+
+
     example.width = 900;
     example.height = 900;
     
@@ -74,7 +98,7 @@ $(document).ready(function() {
     canvasheight = example.height;
     context = example.getContext('2d');
     
-    var t=setInterval("gameLoop()",refreshRate); 
+
     
     $(example).mousedown(function myDown(e) {
         countAmmunition--;
@@ -91,7 +115,15 @@ $(document).ready(function() {
             // some winning condition
 			wilhelm_scream.play();
             countShotBirds++;
-            var random = Math.floor(Math.random()*canvaswidth);
+            createRandomBird();
+        }
+    });
+    
+}
+
+
+function createRandomBird() {
+			var random = Math.floor(Math.random()*canvaswidth);
             birdxpos=random;
             random = Math.floor(Math.random()*canvasheight);
             birdypos=random;
@@ -99,10 +131,7 @@ $(document).ready(function() {
             var random2 = Math.floor(Math.random()*150)+50; 
             var random3 = Math.floor(Math.random()*150)+50; 
             birdcolor = "rgb("+random1+","+random2+","+random3+")";
-        }
-    });
-    
-});
+}
 
 function writeGameState() {    
     context.fillStyle = '#000';
@@ -169,7 +198,7 @@ function clearBird() {
     context.fill(); 
 }
 
-function moveBird() {    
+function moveBird() {   
     var random =Math.floor(Math.random()*45);
     if(random == 5) updown = "up";
     if(random == 6) updown = "down";
@@ -195,4 +224,5 @@ function collisionWithWalls() {
             Sorry! Your browser doesn't support HTML5.
         </canvas>
     </body>
+	<button id="new-game-button" type="button" onclick="initiateGame(example);">New Game</button>
 </html>
