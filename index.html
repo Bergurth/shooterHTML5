@@ -72,10 +72,33 @@ $(document).ready(function() {
 	music.play();
     example = document.getElementById('example'); // ná canvas!
 	var t=setInterval("gameLoop()",refreshRate);
+	
+	    $(example).mousedown(function myDown(e) {
+        countAmmunition--;
+		shot.playclip();
+        var position = $(example).position();
+        var x = e.pageX-position.left;
+        var y = e.pageY-position.top;
+        drawGunshot(x,y);
+        // Hitti fuglinn eða ekki .. 
+        // Þetta fyrir neðan notar kassa, þurfum pythagorean distance fyrir hringinn
+        if( (birdxpos-birdsize/2)<x && x<(birdxpos+birdsize/2) 
+        && (birdypos-birdsize/2)<y && y<(birdypos+birdsize/2) 
+        && countAmmunition > 0) {
+            // some winning condition
+			wilhelm_scream.playclip();
+            countShotBirds++;
+            createRandomBird();
+        }
+    });
+	
 	initiateGame(example);
 	
 	
 });
+
+
+
 
 function initiateGame(example) {
 
@@ -101,28 +124,7 @@ canvaswidth;
     canvaswidth = example.width;
     canvasheight = example.height;
     context = example.getContext('2d');
-    
-
-    
-    $(example).mousedown(function myDown(e) {
-        countAmmunition--;
-		shot.playclip();
-        var position = $(example).position();
-        var x = e.pageX-position.left;
-        var y = e.pageY-position.top;
-        drawGunshot(x,y);
-        // Hitti fuglinn eða ekki .. 
-        // Þetta fyrir neðan notar kassa, þurfum pythagorean distance fyrir hringinn
-        if( (birdxpos-birdsize/2)<x && x<(birdxpos+birdsize/2) 
-        && (birdypos-birdsize/2)<y && y<(birdypos+birdsize/2) 
-        && countAmmunition > 0) {
-            // some winning condition
-			wilhelm_scream.playclip();
-            countShotBirds++;
-            createRandomBird();
-        }
-    });
-    
+        
 }
 
 
