@@ -16,7 +16,7 @@ var canvasheight;
 
 $(document).ready(function() {
 
-
+   
 	music.play();
     example = document.getElementById('example'); // ná canvas!
 	var t=setInterval("gameLoop()",refreshRate);
@@ -39,9 +39,21 @@ $(document).ready(function() {
             createRandomBird();
         }
     });
+
+    example.width = 900;
+    example.height = 900;
+
+    
+    
+    canvaswidth = example.width;
+    canvasheight = example.height;
+    context = example.getContext('2d');
+    
+    TIEwar.onload = function() {context.drawImage(TIEwar,0,0,canvaswidth,canvasheight);};
+
 	
 	initiateGame(example);
-	
+    
 	
 });
 
@@ -49,6 +61,8 @@ $(document).ready(function() {
 
 
 function initiateGame(example) {
+
+
 
 fps = 50;
 context;
@@ -68,11 +82,15 @@ canvaswidth;
 
     example.width = 900;
     example.height = 900;
+
+    
     
     canvaswidth = example.width;
     canvasheight = example.height;
     context = example.getContext('2d');
-        
+    
+    context.drawImage(TIEwar,0,0,canvaswidth,canvasheight);
+    
 }
 
 
@@ -148,6 +166,7 @@ function drawBird() {
     context.arc(birdxpos, birdypos, radius, 13, Math.PI*2, true); 
     context.closePath();
     context.fill();
+    context.drawImage(TIE1,birdxpos-radius*0.8,birdypos-radius*0.8,radius*1.5,radius*1.5);
 }
 
 function clearBird() {

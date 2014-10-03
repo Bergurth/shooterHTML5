@@ -59,3 +59,12 @@ var shot=createsoundbite("sniper_shot.wav");
 	shot.volume=0.05;
 var wilhelm_scream=createsoundbite('wilhelm_scream.mp3');
 	wilhelm_scream.volume = 0.25;
+
+
+// Images
+
+var TIEwar = new Image();
+TIEwar.src ='images/tie-fighter-space-wars.jpg'; 
+
+var TIE1 = new Image();
+TIE1.src ='images/TIE2.jpg';
