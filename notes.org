@@ -8,6 +8,21 @@ http://blogs.msdn.com/b/davrous/archive/2011/07/21/html5-gaming-animating-sprite
 *** canvas layer stuff
 http://html5.litten.com/using-multiple-html5-canvases-as-layers/
 
+*** sprite stuff
+http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/
+
+function sprite (options) {
+				
+    var that = {};
+					
+    that.context = options.context;
+    that.width = options.width;
+    that.height = options.height;
+    that.image = options.image;
+
+    return that;
+}
+
 **** code
 
 <!doctype html>
@@ -131,3 +146,6 @@ manga small people
 http://fc08.deviantart.net/fs70/f/2014/185/1/3/togami_sprite_sheet_by_mary_sutcliff-d7p9th2.png
 http://fc07.deviantart.net/fs71/f/2014/185/e/f/fujisaki_sprite_sheet_by_mary_sutcliff-d7p9rh8.gif
 http://fc06.deviantart.net/fs70/f/2014/185/3/1/ishimaru_sprite_sheet_by_mary_sutcliff-d7p9s3f.png
+
+truely transparent image
+http://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/280px-PNG_transparency_demonstration_1.png

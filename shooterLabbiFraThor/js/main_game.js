@@ -25,13 +25,15 @@ var html5_audiotypes={
 }
 
 var imgChar = new Image();
-imgChar.src = "http://www.elfquest.com/social/file/pic/photo/2012/01/TrollHammer-ogre_500.png";
+//imgChar.src = "http://www.elfquest.com/social/file/pic/photo/2012/01/TrollHammer-ogre_500.png";
+imgChar.src = "../images/TrollHammer-ogre_5003.png";
 var xpos = 100;
 var ypos = 100;
-var width = 93;
+var width = 91;
 var height = 125;
 // sx, sy, swidth, sheight are all for cropping
-var sx = 0;
+var xstart = 4
+var sx = xstart;
 var sy = 0;
 var swidth = width;
 var sheight = height;
@@ -150,7 +152,7 @@ function drawCharacter() {
 	gameLoopCounter2++;
     if(gameLoopCounter == 10) {
 		if (sx >= 3*swidth) {
-			sx = 0;
+			sx = xstart;
 		}
 		else {
 			sx += swidth;
