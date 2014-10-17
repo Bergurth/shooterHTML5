@@ -68,3 +68,6 @@ TIEwar.src ='images/tie-fighter-space-wars.jpg';
 
 var TIE1 = new Image();
 TIE1.src ='images/TIE2.jpg';
+
+var troll = new Image();
+troll.src -'images/TrollHammer-ogre_500.png'
