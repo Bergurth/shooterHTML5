@@ -1,30 +1,105 @@
-		
-
-
+var fps = 50;
+var music = new Audio('sounds/music1.mp3');
+var wilhelm_scream = new Audio('sounds/deathscream1.mp3');
+wilhelm_scream.volume = 0.25;
 var example;
 var context;
 var canvaswidth;
 var canvasheight;
+var birdxpos = 100;
+var birdypos = 100;
+var birdsize = 20;
+var birdcolor = "rgb(255,0,0)";
+var updown = "up";
+var leftright="left";
+var refreshRate = 1000/fps;
+var speed = 100/fps;
+var countShotBirds = 0;
+var countAmmunition = 50;
 
+var html5_audiotypes={
+	"mp3": "audio/mpeg",
+	"mp4": "audio/mp4",
+	"ogg": "audio/ogg",
+	"wav": "audio/wav"
+}
 
+var trImg = new Image();
+//trImg.src = "../images/img.png"
 
+trImg.src = "http://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/280px-PNG_transparency_demonstration_1.png";
 
+var imgChar = new Image();
+//imgChar.src = "http://www.elfquest.com/social/file/pic/photo/2012/01/TrollHammer-ogre_500.png";
+imgChar.src = "../images/fig07.png";
+var xpos = 100;
+var ypos = 100;
+var width = 155;
+var height = 220;
+// sx, sy, swidth, sheight are all for cropping
+var xstart = 0
+var sx = xstart;
+var sy = 0;
+var swidth = width;
+var sheight = height;
 
+var gameLoopCounter = 0;
+var gameLoopCounter2 = 0;
 
-
-
+function createsoundbite(sound){
+	var html5audio=document.createElement('audio');
+	$('#player').append(html5audio);
+  	html5audio.id = "html5audio";
+	if (html5audio.canPlayType){
+		for (var i=0; i<arguments.length; i++){
+			var sourceel=document.createElement('source')
+			sourceel.setAttribute('src', arguments[i])
+			if (arguments[i].match(/\.(\w+)$/i))
+				sourceel.setAttribute('type', html5_audiotypes[RegExp.$1])
+			html5audio.appendChild(sourceel)
+		}
+		html5audio.load()
+		html5audio.playclip=function(){
+			html5audio.pause()
+			html5audio.currentTime=0
+			html5audio.play()
+		}
+		return html5audio
+	}
+	else{
+		return {playclip:function(){throw new Error("Sorry brah, yo browser too ol' get Chrome or sumtin!")}}
+	}
+}
 
 $(document).ready(function() {
 
-   
+
+	
+	var shot=createsoundbite("sounds/gunshot1.wav");
+	shot.volume=0.05; // var alltof hátt
+	//var crank=createsoundbite("crank.mp3", "crank.ogg")
+	
 	music.play();
     example = document.getElementById('example'); // ná canvas!
-	var t=setInterval("gameLoop()",refreshRate);
+    example.width = $('.canvas-container').width();
+	example.height = 600;
+    
 	
-	    $(example).mousedown(function myDown(e) {
+	
+    canvaswidth = example.width;
+    canvasheight = example.height;
+    context = example.getContext('2d');
+	
+	trImg.onload = function() {
+   context.drawImage(trImg,250,300);
+	};
+	
+    var t=setInterval("gameLoop()",refreshRate); 
+    
+    $(example).mousedown(function myDown(e) {
         countAmmunition--;
 		shot.playclip();
-        var position = $(example).position();
+        var position = $(example).offset(); // hér var $(example).position() sem var ekki lengur rétt
         var x = e.pageX-position.left;
         var y = e.pageY-position.top;
         drawGunshot(x,y);
@@ -34,75 +109,9 @@ $(document).ready(function() {
         && (birdypos-birdsize/2)<y && y<(birdypos+birdsize/2) 
         && countAmmunition > 0) {
             // some winning condition
-			wilhelm_scream.playclip();
+			wilhelm_scream.play();
             countShotBirds++;
-            createRandomBird();
-        }
-    });
-
-    example.width = 900;
-    example.height = 900;
-
-    
-    
-    canvaswidth = example.width;
-    canvasheight = example.height;
-    context = example.getContext('2d');
-    
-    TIEwar.onload = function() {context.drawImage(TIEwar,0,0,canvaswidth,canvasheight);};
-
-	
-	initiateGame(example);
-    
-	
-});
-
-
-
-
-function initiateGame(example) {
-
-
-
-fps = 50;
-context;
-canvaswidth;
- canvasheight;
- birdxpos = 100;
- birdypos = 100;
- birdsize = 20;
- birdcolor = "rgb(255,0,0)";
- updown = "up";
- leftright="left";
- refreshRate = 1000/fps;
- speed = 100/fps;
- countShotBirds = 0;
- countAmmunition = 100;
-
-
-    example.width = 900;
-    example.height = 900;
-
-    
-    
-    canvaswidth = example.width;
-    canvasheight = example.height;
-    context = example.getContext('2d');
-    
-    context.drawImage(TIEwar,0,0,canvaswidth,canvasheight);
-    
-}
-
-
-function createRandomBird() {
-			var type = Math.random()<0.5;
-			if (type){
-				birdKind = "horiz";
-			}
-			else {
-				birdKind = "vertical";
-			}
-			var random = Math.floor(Math.random()*canvaswidth);
+            var random = Math.floor(Math.random()*canvaswidth);
             birdxpos=random;
             random = Math.floor(Math.random()*canvasheight);
             birdypos=random;
@@ -110,7 +119,10 @@ function createRandomBird() {
             var random2 = Math.floor(Math.random()*150)+50; 
             var random3 = Math.floor(Math.random()*150)+50; 
             birdcolor = "rgb("+random1+","+random2+","+random3+")";
-}
+        }
+    });
+    
+});
 
 function writeGameState() {    
     context.fillStyle = '#000';
@@ -126,7 +138,7 @@ function writeGameOver() {
     context.textBaseline = 'top';
     context.fillText('Game over! You got '+countShotBirds+' balloons',30,0);
     context.font = '30px verdana';
-    context.fillText('To play again, hit New Game!',30,50);
+    context.fillText('To play again, hit refresh!',30,50);
     exit();
 }
 
@@ -144,6 +156,36 @@ function gameLoop() {
     moveBird();
     collisionWithWalls();
     drawBird();
+	imgChar.onload = function() { drawCharacter(); }
+	drawCharacter();
+}
+
+function drawCharacter() {
+	gameLoopCounter++;
+	gameLoopCounter2++;
+    if(gameLoopCounter == 10) {
+		if (sx >= 3*swidth) {
+			sx = xstart;
+		}
+		else {
+			sx += swidth;
+		}
+		gameLoopCounter = 0;
+	}
+	
+	if (gameLoopCounter2 == 120) {
+		if (sy >= sheight) {
+			sy = 0;
+		}
+		else {
+			sy += sheight;
+		}
+		
+		gameLoopCounter2 = 0;
+	}
+
+    context.drawImage(imgChar, sx, sy, swidth, sheight, xpos, ypos, width, height);
+    
 }
 
 function drawGunshot(x, y) {
@@ -166,7 +208,6 @@ function drawBird() {
     context.arc(birdxpos, birdypos, radius, 13, Math.PI*2, true); 
     context.closePath();
     context.fill();
-    context.drawImage(TIE1,birdxpos-radius*0.8,birdypos-radius*0.8,radius*1.5,radius*1.5);
 }
 
 function clearBird() {
@@ -178,10 +219,8 @@ function clearBird() {
     context.fill(); 
 }
 
-function moveBird() {
-	var random =Math.floor(Math.random()*45);
-	if(birdKind=="horiz"){
-    
+function moveBird() {    
+    var random =Math.floor(Math.random()*45);
     if(random == 5) updown = "up";
     if(random == 6) updown = "down";
     if(updown =="up") birdypos -= speed;
@@ -189,17 +228,6 @@ function moveBird() {
 
     if(leftright =="right") birdxpos += speed;
     else birdxpos -= speed;
-	}
-	else {
-   
-    if(random == 5) leftright = "up";
-    if(random == 6) leftright = "down";
-    if(updown =="up") birdypos -= speed;
-    else birdypos += speed;
-
-    if(leftright =="right") birdxpos += speed;
-    else birdxpos -= speed;
-	}
 }
 
 function collisionWithWalls() {
