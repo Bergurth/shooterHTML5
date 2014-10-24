@@ -166,7 +166,7 @@ function drawBird() {
     context.arc(birdxpos, birdypos, radius, 13, Math.PI*2, true); 
     context.closePath();
     context.fill();
-    context.drawImage(TIE1,birdxpos-radius*0.8,birdypos-radius*0.8,radius*1.5,radius*1.5);
+    context.drawImage(TIE1,birdxpos-radius*0.8,birdypos-radius*0.8);
 }
 
 function clearBird() {
