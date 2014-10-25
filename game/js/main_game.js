@@ -1,36 +1,52 @@
 var fps = 50;
 var music = new Audio('sounds/music1.mp3');
-var wilhelm_scream = new Audio('sounds/deathscream1.mp3');
-wilhelm_scream.volume = 0.25;
-
-var layer1;
-var layer2;
-var layer3;
-var layer4;
-var ctx1;
-var ctx2;
-var ctx3;
-var ctx4;
-
-var canvaswidth;
-var canvasheight;
-var birdxpos = 100;
-var birdypos = 100;
-var birdsize = 20;
-var birdcolor = "rgb(255,0,0)";
-var updown = "up";
-var leftright="left";
-var refreshRate = 1000/fps;
-var speed = 100/fps;
-var countShotBirds = 0;
-var countAmmunition = 50;
+music.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+}, false);
 
 var html5_audiotypes={
-	"mp3": "audio/mpeg",
-	"mp4": "audio/mp4",
-	"ogg": "audio/ogg",
-	"wav": "audio/wav"
+    "mp3": "audio/mpeg",
+    "mp4": "audio/mp4",
+    "ogg": "audio/ogg",
+    "wav": "audio/wav"
 }
+
+function createsoundbite(sound){
+    var html5audio=document.createElement('audio');
+    $('#player').append(html5audio);
+    html5audio.id = "html5audio";
+    if (html5audio.canPlayType){
+        for (var i=0; i<arguments.length; i++){
+            var sourceel=document.createElement('source')
+            sourceel.setAttribute('src', arguments[i])
+            if (arguments[i].match(/\.(\w+)$/i))
+                sourceel.setAttribute('type', html5_audiotypes[RegExp.$1])
+            html5audio.appendChild(sourceel)
+        }
+        html5audio.load()
+        html5audio.playclip=function(){
+            html5audio.pause()
+            html5audio.currentTime=0
+            html5audio.play()
+        }
+        return html5audio
+    }
+    else{
+        return {playclip:function(){throw new Error("Sorry brah, yo browser too ol' get Chrome or sumtin!")}}
+    }
+}
+
+var wilhelm_scream = new createsoundbite('sounds/deathscream1.mp3');
+wilhelm_scream.volume = 0.25;
+
+var shot=createsoundbite("sounds/gunshot1.wav");
+    shot.volume=0.05; // var alltof hátt
+    //var crank=createsoundbite("crank.mp3", "crank.ogg")
+
+var refreshRate = 1000/fps;
+
+
 
 var imgChar = new Image();
 //imgChar.src = "http://www.elfquest.com/social/file/pic/photo/2012/01/TrollHammer-ogre_500.png";
@@ -46,69 +62,86 @@ var sy = 0;
 var swidth = width;
 var sheight = height;
 
+var countShotBirds = 0;
+var countAmmunition = 50;
+var birdsize = 20;
+var birdxpos = 100;
+var birdypos = 100;
+var speed = 100/fps;
+var updown = "up";
+var leftright="left";
+var birdcolor = "rgb(255,0,0)";
+
 
 var gameLoopCounter = 0;
 var chardirection = "down";
 var charMoving = false;
 var direction_arr = {"down": 0, "left": 1, "right": 2, "up": 3};
 
-function createsoundbite(sound){
-	var html5audio=document.createElement('audio');
-	$('#player').append(html5audio);
-  	html5audio.id = "html5audio";
-	if (html5audio.canPlayType){
-		for (var i=0; i<arguments.length; i++){
-			var sourceel=document.createElement('source')
-			sourceel.setAttribute('src', arguments[i])
-			if (arguments[i].match(/\.(\w+)$/i))
-				sourceel.setAttribute('type', html5_audiotypes[RegExp.$1])
-			html5audio.appendChild(sourceel)
-		}
-		html5audio.load()
-		html5audio.playclip=function(){
-			html5audio.pause()
-			html5audio.currentTime=0
-			html5audio.play()
-		}
-		return html5audio
-	}
-	else{
-		return {playclip:function(){throw new Error("Sorry brah, yo browser too ol' get Chrome or sumtin!")}}
-	}
-}
+
+var layer1;
+var layer2;
+var layer3;
+var layer4;
+var ctx1;
+var ctx2;
+var ctx3;
+var ctx4;
 
 $(document).ready(function() {
 
-	var shot=createsoundbite("sounds/gunshot1.wav");
-	shot.volume=0.05; // var alltof hátt
-	//var crank=createsoundbite("crank.mp3", "crank.ogg")
-	music.play();
 	
-	layer1 = document.getElementById("layer1");
-	layer1.width = $('.canvas-container').width();
-	layer1.height = 600;
-	ctx1 = layer1.getContext("2d");
-	layer2 = document.getElementById("layer2");
-	layer2.width = $('.canvas-container').width();
-	layer2.height = 600;
-	ctx2 = layer2.getContext("2d");
-	layer3 = document.getElementById("layer3");
-	layer3.width = $('.canvas-container').width();
-	layer3.height = 600;
-	ctx3 = layer3.getContext("2d");
-	layer4 = document.getElementById("layer4");
-	layer4.width = $('.canvas-container').width();
-	layer4.height = 600;
-	ctx4 = layer4.getContext("2d");
-	
+
+
+   layer1 = document.getElementById("layer1");
+    layer1.width = $('.canvas-container').width();
+    layer1.height = 600;
+    ctx1 = layer1.getContext("2d");
+    layer2 = document.getElementById("layer2");
+    layer2.width = $('.canvas-container').width();
+    layer2.height = 600;
+    ctx2 = layer2.getContext("2d");
+    layer3 = document.getElementById("layer3");
+    layer3.width = $('.canvas-container').width();
+    layer3.height = 600;
+    ctx3 = layer3.getContext("2d");
+    layer4 = document.getElementById("layer4");
+    layer4.width = $('.canvas-container').width();
+    layer4.height = 600;
+    ctx4 = layer4.getContext("2d");
+    
     canvaswidth = $('.canvas-container').width();
     canvasheight = 600;
-	
+
+	music.play();
+
     var t=setInterval("gameLoop()",refreshRate); 
+	
+    initiateGame();
+    
+});
+
+function initiateGame() {
+
+
+
+
+birdsize = 20;
+birdcolor = "rgb(255,0,0)";
+updown = "up";
+leftright="left";
+
+speed = 100/fps;
+countShotBirds = 0;
+countAmmunition = 50;
+
+ 
+    
+    
     
     $('.canvas-container').mousedown(function myDown(e) {
         countAmmunition--;
-		shot.playclip();
+        shot.playclip();
         var position = $(layer1).offset(); // hér var $(example).position() sem var ekki lengur rétt
         var x = e.pageX-position.left;
         var y = e.pageY-position.top;
@@ -119,7 +152,7 @@ $(document).ready(function() {
         && (birdypos-birdsize/2)<y && y<(birdypos+birdsize/2) 
         && countAmmunition > 0) {
             // some winning condition
-			wilhelm_scream.play();
+            wilhelm_scream.playclip();
             countShotBirds++;
             var random = Math.floor(Math.random()*canvaswidth);
             birdxpos=random;
@@ -131,8 +164,9 @@ $(document).ready(function() {
             birdcolor = "rgb("+random1+","+random2+","+random3+")";
         }
     });
-    
-});
+
+}
+
 
 function writeGameState() {    
     ctx3.fillStyle = '#000';
