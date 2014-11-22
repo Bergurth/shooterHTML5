@@ -16,8 +16,49 @@ var direction_arr = {"down": 0, "left": 1, "right": 2, "up": 3};
 var sprite_offset_x = 46;
 var sprite_offset_y = 20;
 
+/*
+// experemental sprite stuff
+function sprite(imageName, swidth, sheight, xstart, widthNum){
+    this.imageName = imageName;
+    this.swidth = swidth;
+    this.sheight = sheight;
 
+    this.widthNum = widthNum;
+    this.xstart = xstart;
+    this.image = new Image();
+    this.image.src = imageName;
 
+    this.sx = xstart;
+    this.sy = 0;
+}
+
+sprite.prototype = {
+   
+    drawSprite : function(xpos, ypos, width, height, layer) {
+      
+
+        gameLoopCounter++;
+        if(gameLoopCounter == 10) {
+            if (this.sx >= this.widthNum*width) {
+                this.sx = this.xstart;
+
+            }
+            else {
+                this.sx += width;
+            }
+            gameLoopCounter = 0;
+        }
+    
+    
+    this.sy = direction_arr[chardirection] * sheight;
+    //layer.drawImage(this.image, this.sx, this.sy, swidth, sheight, xpos, ypos, width, height);
+    }
+
+}
+
+var goblinSprite = Object.create(new sprite("../images/GoblinTemplate.png", 32, 32, 0, 2));
+
+*/
 $(document).ready(function() {
 
    
@@ -27,11 +68,12 @@ $(document).ready(function() {
 	
 	    $('.canvas-container').mousedown(function myDown(e) {
         countAmmunition--;
-		shot.playclip();
+		//shot.playclip();
+        laser.playclip();
         var position = $(layer1).offset(); // hér var $(example).position() sem var ekki lengur rétt
         var x = e.pageX-position.left;
         var y = e.pageY-position.top;
-        //drawGunshot(x,y);
+        drawGunshot(x,y);
         drawLaser(x,y);
         // Hitti fuglinn eða ekki .. 
         // Þetta fyrir neðan notar kassa, þurfum pythagorean distance fyrir hringinn
@@ -70,9 +112,12 @@ $(document).ready(function() {
     layer4.height = 900;
     ctx4 = layer4.getContext("2d");
     
-    TIEwar.onload = function() {ctx1.drawImage(TIEwar,0,0,canvaswidth,canvasheight);};
+    //TIEwar.onload = function() {ctx1.drawImage(TIEwar,0,0,canvaswidth,canvasheight);};
 
 	
+
+
+
 	initiateGame(layer1,layer2,layer3,layer4);
     
 	
@@ -126,7 +171,7 @@ canvaswidth;
     ctx4 = layer4.getContext("2d");
 
     
-    ctx1.drawImage(TIEwar,0,0,canvaswidth,canvasheight);
+   // ctx1.drawImage(TIEwar,0,0,canvaswidth,canvasheight);
     
 }
 
@@ -223,6 +268,7 @@ function gameLoop() {
     else writeGameOver();
     clearBird();
     moveBird();
+    collisionWithPlayer();
     collisionWithWalls();
     drawBird();
 
@@ -292,7 +338,8 @@ function drawBird() {
     ctx2.arc(birdxpos, birdypos, radius, 13, Math.PI*2, true); 
     ctx2.closePath();
     ctx2.fill();
-    ctx2.drawImage(TIE1,birdxpos-radius*0.8,birdypos-radius*0.8);
+    //ctx2.drawImage(TIE1,birdxpos-radius*0.8,birdypos-radius*0.8);
+    //goblinSprite.drawSprite(birdxpos-radius*0.8,birdypos-radius*0.8, ctx2);
 }
 
 function clearBird() {
@@ -334,4 +381,26 @@ function collisionWithWalls() {
     
     if(birdypos < birdsize/2) updown="down";
     if(birdypos > (canvasheight-birdsize/2)) updown="up";
+}
+
+function collisionWithPlayer() {
+    var give_me_a_break = 15; // this is so you can barely escape with the knees 
+    if( birdxpos > (xpos + give_me_a_break) 
+    && birdxpos < (xpos + width - give_me_a_break) 
+    && birdypos > (ypos + give_me_a_break) 
+    && birdypos < (ypos + height - give_me_a_break) ) {
+        annoyed1.play();
+        console.log("ouch");
+        // ogre dies? or loses life? so then in general we might have lots of life and scoring etc
+        // listen to: http://www.thanatosrealms.com/war2/horde-sounds
+    }
+    
+    // to see hitbox uncomment this:
+   /* 
+    ctx4.rect(xpos + give_me_a_break, 
+    ypos + give_me_a_break,
+    width - 2*give_me_a_break,
+    height - 2*give_me_a_break);
+    ctx4.stroke();
+    */
 }

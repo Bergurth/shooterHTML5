@@ -77,6 +77,7 @@ TIE1.src = "../images/280px-PNG_transparency_demonstration_1.png";
 var imgChar = new Image();
 //imgChar.src = "http://www.elfquest.com/social/file/pic/photo/2012/01/TrollHammer-ogre_500.png";
 imgChar.src = "../images/trollhammer.png";
+//imgChar.src = "../images/070-Goblin04.png";
 var xpos = 100;
 var ypos = 100;
 var width = 91;
@@ -92,3 +93,9 @@ var gameLoopCounter = 0;
 var chardirection = "down";
 var charMoving = false;
 var direction_arr = {"down": 0, "left": 1, "right": 2, "up": 3};
+
+var annoyed1=new Audio("../sounds/annoyed1.wav");
+var annoyed2=new Audio("../sounds/annoyed2.wav");
+var death=new Audio("../sounds/death.wav");
+var laser=createsoundbite("../sounds/death-coil.wav");
+laser.volume=0.1; // var alltof hátt
