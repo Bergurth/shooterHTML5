@@ -60,9 +60,7 @@ var goblinSprite = Object.create(new sprite("../images/GoblinTemplate.png", 32, 
 
 */
 $(document).ready(function() {
-
-   
-	music.play();
+	// music.play();
     layer1 = document.getElementById('layer1'); // ná canvas!
 	var t=setInterval("gameLoop()",refreshRate);
 	
@@ -172,6 +170,7 @@ canvaswidth;
 
     
    // ctx1.drawImage(TIEwar,0,0,canvaswidth,canvasheight);
+   setLife(100);
     
 }
 
@@ -383,15 +382,45 @@ function collisionWithWalls() {
     if(birdypos > (canvasheight-birdsize/2)) updown="up";
 }
 
+function getLife() {
+	return $('.progress-bar span').html();
+}
+
+function setLife (hp) {
+	$('.progress-bar span').html(hp);
+	$('.progress-bar').css('width',hp+'%')
+	$('.progress-bar').attr('aria-valuenow', hp)
+	if(hp > 60) {
+		$('.progress-bar').attr('class', 'progress-bar progress-bar-success');
+	}
+	else if (hp < 30 ) {
+		$('.progress-bar').attr('class', 'progress-bar progress-bar-danger');
+	}
+	else { // 20 <= hp < 50
+		$('.progress-bar').attr('class', 'progress-bar progress-bar-warning');
+	}
+}
+
 function collisionWithPlayer() {
     var give_me_a_break = 15; // this is so you can barely escape with the knees 
     if( birdxpos > (xpos + give_me_a_break) 
     && birdxpos < (xpos + width - give_me_a_break) 
     && birdypos > (ypos + give_me_a_break) 
     && birdypos < (ypos + height - give_me_a_break) ) {
-        annoyed1.play();
-        console.log("ouch");
-        // ogre dies? or loses life? so then in general we might have lots of life and scoring etc
+		var life = getLife();
+		var dmg = 20;
+		if (life > dmg ) { // player still lives
+			annoyed1.play();
+			setLife( life - dmg);
+			createRandomBird(); // create new bird
+			// life -10
+		}
+		else { // player died
+			death.play();
+			setLife(0);
+			// ogre died game over
+			// display score
+		}
         // listen to: http://www.thanatosrealms.com/war2/horde-sounds
     }
     
