@@ -9,6 +9,8 @@ http://blogs.msdn.com/b/davrous/archive/2011/07/21/html5-gaming-animating-sprite
 http://html5.litten.com/using-multiple-html5-canvases-as-layers/
 
 *** sprite stuff
+http://jlongster.com/Making-Sprite-based-Games-with-Canvas
+
 http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/
 
 function sprite (options) {
