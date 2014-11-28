@@ -31,7 +31,10 @@ function sprite(imageName, swidth, sheight, xstart, widthNum){
     this.sx = xstart;
     this.sy = 0;
 }
+*/
 
+
+/*
 sprite.prototype = {
    
     drawSprite : function(xpos, ypos, width, height, layer) {
@@ -177,6 +180,9 @@ canvaswidth;
 function clearCharacter() {
     ctx3.clearRect(xpos,ypos,width,height);
 }
+function clearGoblin() {
+	ctx2.clearRect(birdxpos-16, birdypos-16, 33, 33);
+}
 
 function moveCharacter() {
     if(keydown.left || keydown.a) {
@@ -235,6 +241,7 @@ function createRandomBird() {
             var random2 = Math.floor(Math.random()*150)+50; 
             var random3 = Math.floor(Math.random()*150)+50; 
             birdcolor = "rgb("+random1+","+random2+","+random3+")";
+			goblinSprite.location = [birdxpos-16,birdypos-16];
 }
 
 function writeGameState() {    
@@ -269,9 +276,11 @@ function gameLoop() {
     moveBird();
     collisionWithPlayer();
     collisionWithWalls();
+	clearGoblin();
     drawBird();
 
     clearCharacter();
+	
     moveCharacter();
     drawCharacter();
 }
@@ -339,6 +348,7 @@ function drawBird() {
     ctx2.fill();
     //ctx2.drawImage(TIE1,birdxpos-radius*0.8,birdypos-radius*0.8);
     //goblinSprite.drawSprite(birdxpos-radius*0.8,birdypos-radius*0.8, ctx2);
+	goblinSprite.render(ctx2);
 }
 
 function clearBird() {
@@ -372,6 +382,7 @@ function moveBird() {
     if(leftright =="right") birdxpos += speed;
     else birdxpos -= speed;
 	}
+	goblinSprite.location = [birdxpos-16,birdypos-16];
 }
 
 function collisionWithWalls() {
