@@ -155,5 +155,14 @@ Sprite.prototype.render = function(ctx) {
                   this.size[0], this.size[1]);
 }
 
+
 goblinSprite = new Sprite([birdxpos-16,birdypos-16],'../images/a.png', [0, 0], [33, 33],
-                               3, [0, 1, 2, 3, 2, 1])
+                               0.5, [0, 1, 2, 1]);
+
+goblinSpriteUp = new Sprite([birdxpos-16,birdypos-16],'../images/a.png', [0, 99], [33, 33],
+                               0.5, [0, 1, 2, 1]);
+
+goblinSpriteLe = new Sprite([birdxpos-16,birdypos-16],'../images/a.png', [0, 33], [33, 33],
+                               0.5, [0, 1, 2, 1]);
+goblinSpriteRi = new Sprite([birdxpos-16,birdypos-16],'../images/a.png', [0, 66], [33, 33],
+                               0.5, [0, 1, 2, 1]);

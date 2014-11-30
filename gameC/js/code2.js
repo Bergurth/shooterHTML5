@@ -8,6 +8,7 @@ var canvasheight;
 
 
 var gameLoopCounter = 0;
+var spriteCounter = 0;
 var chardirection = "down";
 var charMoving = false;
 var direction_arr = {"down": 0, "left": 1, "right": 2, "up": 3};
@@ -84,6 +85,7 @@ $(document).ready(function() {
             // some winning condition
 			wilhelm_scream.playclip();
             countShotBirds++;
+            //goblinOutSequence();
             createRandomBird();
         }
     });
@@ -149,6 +151,7 @@ canvaswidth;
  speed = 100/fps;
  countShotBirds = 0;
  countAmmunition = 100;
+ spriteCounter = 0;
 
 
     layer1.width = 900;
@@ -181,8 +184,12 @@ function clearCharacter() {
     ctx3.clearRect(xpos,ypos,width,height);
 }
 function clearGoblin() {
-	ctx2.clearRect(birdxpos-16, birdypos-16, 33, 33);
+
+    //if (spriteCounter%2 == 0){
+        ctx2.clearRect(birdxpos-16, birdypos-16, 33, 33);
+    //}
 }
+	
 
 function moveCharacter() {
     if(keydown.left || keydown.a) {
@@ -269,14 +276,20 @@ function clearGameState() {
 
 function gameLoop() {
     // draw entire background??
+    spriteCounter++;
+    goblinSprite.update(spriteCounter);
+    goblinSpriteUp.update(spriteCounter);
+    goblinSpriteLe.update(spriteCounter);
+    goblinSpriteRi.update(spriteCounter);
     clearGameState();
     if (countAmmunition > 0) writeGameState();
     else writeGameOver();
-    clearBird();
-    moveBird();
+    //clearBird();
+    
     collisionWithPlayer();
     collisionWithWalls();
 	clearGoblin();
+    moveBird();
     drawBird();
 
     clearCharacter();
@@ -340,15 +353,33 @@ function drawLaser(x, y) {
 }
 
 function drawBird() {
-    ctx2.fillStyle = birdcolor;
-    ctx2.beginPath();
-    var radius = birdsize/2;
-    ctx2.arc(birdxpos, birdypos, radius, 13, Math.PI*2, true); 
-    ctx2.closePath();
-    ctx2.fill();
+    //ctx2.fillStyle = birdcolor;
+    //ctx2.beginPath();
+    //var radius = birdsize/2;
+    //ctx2.arc(birdxpos, birdypos, radius, 13, Math.PI*2, true); 
+    //ctx2.closePath();
+    //ctx2.fill();
+
     //ctx2.drawImage(TIE1,birdxpos-radius*0.8,birdypos-radius*0.8);
     //goblinSprite.drawSprite(birdxpos-radius*0.8,birdypos-radius*0.8, ctx2);
-	goblinSprite.render(ctx2);
+    
+    //if (spriteCounter%3 == 0){
+    //    clearGoblin();
+    //}
+    if(birdKind=="horiz"){
+    
+    if(leftright =="right") /* draw right goblin*/goblinSpriteRi.render(ctx2);
+    else /* draw left goblin */goblinSpriteLe.render(ctx2);
+    }
+    else {
+   
+   
+    if(updown =="up") /* draw up goblin */goblinSpriteUp.render(ctx2);
+    else /* draw down goblin*/goblinSprite.render(ctx2);
+
+    
+    }
+
 }
 
 function clearBird() {
@@ -383,6 +414,9 @@ function moveBird() {
     else birdxpos -= speed;
 	}
 	goblinSprite.location = [birdxpos-16,birdypos-16];
+    goblinSpriteUp.location = [birdxpos-16,birdypos-16];
+    goblinSpriteRi.location = [birdxpos-16,birdypos-16];
+    goblinSpriteLe.location = [birdxpos-16,birdypos-16];
 }
 
 function collisionWithWalls() {
