@@ -17,52 +17,7 @@ var direction_arr = {"down": 0, "left": 1, "right": 2, "up": 3};
 var sprite_offset_x = 46;
 var sprite_offset_y = 20;
 
-/*
-// experemental sprite stuff
-function sprite(imageName, swidth, sheight, xstart, widthNum){
-    this.imageName = imageName;
-    this.swidth = swidth;
-    this.sheight = sheight;
 
-    this.widthNum = widthNum;
-    this.xstart = xstart;
-    this.image = new Image();
-    this.image.src = imageName;
-
-    this.sx = xstart;
-    this.sy = 0;
-}
-*/
-
-
-/*
-sprite.prototype = {
-   
-    drawSprite : function(xpos, ypos, width, height, layer) {
-      
-
-        gameLoopCounter++;
-        if(gameLoopCounter == 10) {
-            if (this.sx >= this.widthNum*width) {
-                this.sx = this.xstart;
-
-            }
-            else {
-                this.sx += width;
-            }
-            gameLoopCounter = 0;
-        }
-    
-    
-    this.sy = direction_arr[chardirection] * sheight;
-    //layer.drawImage(this.image, this.sx, this.sy, swidth, sheight, xpos, ypos, width, height);
-    }
-
-}
-
-var goblinSprite = Object.create(new sprite("../images/GoblinTemplate.png", 32, 32, 0, 2));
-
-*/
 $(document).ready(function() {
 	// music.play();
     layer1 = document.getElementById('layer1'); // ná canvas!
@@ -249,6 +204,7 @@ function createRandomBird() {
             var random3 = Math.floor(Math.random()*150)+50; 
             birdcolor = "rgb("+random1+","+random2+","+random3+")";
 			goblinSprite.location = [birdxpos-16,birdypos-16];
+			
 }
 
 function writeGameState() {    
@@ -278,9 +234,7 @@ function gameLoop() {
     // draw entire background??
     spriteCounter++;
     goblinSprite.update(spriteCounter);
-    goblinSpriteUp.update(spriteCounter);
-    goblinSpriteLe.update(spriteCounter);
-    goblinSpriteRi.update(spriteCounter);
+   
     clearGameState();
     if (countAmmunition > 0) writeGameState();
     else writeGameOver();
@@ -366,19 +320,24 @@ function drawBird() {
     //if (spriteCounter%3 == 0){
     //    clearGoblin();
     //}
+   
     if(birdKind=="horiz"){
     
-    if(leftright =="right") /* draw right goblin*/goblinSpriteRi.render(ctx2);
-    else /* draw left goblin */goblinSpriteLe.render(ctx2);
+    if(leftright =="right") /* draw right goblin*/goblinSprite.dir = 'right';
+    else /* draw left goblin */goblinSprite.dir = 'left';
     }
     else {
    
    
-    if(updown =="up") /* draw up goblin */goblinSpriteUp.render(ctx2);
-    else /* draw down goblin*/goblinSprite.render(ctx2);
+    if(updown =="up") /* draw up goblin */goblinSprite.dir = 'back';
+    else /* draw down goblin*/goblinSprite.dir = 'front';
 
     
     }
+   
+	goblinSprite.render(ctx2);
+   
+  
 
 }
 
@@ -414,9 +373,7 @@ function moveBird() {
     else birdxpos -= speed;
 	}
 	goblinSprite.location = [birdxpos-16,birdypos-16];
-    goblinSpriteUp.location = [birdxpos-16,birdypos-16];
-    goblinSpriteRi.location = [birdxpos-16,birdypos-16];
-    goblinSpriteLe.location = [birdxpos-16,birdypos-16];
+   
 }
 
 function collisionWithWalls() {

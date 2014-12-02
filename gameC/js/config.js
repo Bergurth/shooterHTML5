@@ -108,7 +108,7 @@ function Sprite(location, url, pos, size, speed, frames, dir, once) {
     this.frames = frames;
     this._index = 0;
     this.url = url;
-    this.dir = dir || 'horizontal';
+    this.dir = dir || 'front';
     this.once = once;
 	this.image = new Image();
 	this.image.src = url;
@@ -141,12 +141,21 @@ Sprite.prototype.render = function(ctx) {
     var x = this.pos[0];
     var y = this.pos[1];
 
-    if(this.dir == 'vertical') {
-        y += frame * this.size[1];
+    if(this.dir == 'left') {
+        y = this.size[1];
     }
-    else {
-        x += frame * this.size[0];
+	else if(this.dir == 'right') {
+        y = this.size[1]*2;
     }
+    else if(this.dir == 'back') {
+        y = this.size[1]*3;
+    }
+	else if(this.dir == 'front') {
+        y = 0;
+    }
+	
+    x += frame * this.size[0];
+    
 	console.log("rendering goblin");
     ctx.drawImage(this.image,
                   x, y,
@@ -157,12 +166,6 @@ Sprite.prototype.render = function(ctx) {
 
 
 goblinSprite = new Sprite([birdxpos-16,birdypos-16],'../images/a.png', [0, 0], [33, 33],
-                               0.5, [0, 1, 2, 1]);
+                               0.5, [0, 1, 2, 1], 'front');
 
-goblinSpriteUp = new Sprite([birdxpos-16,birdypos-16],'../images/a.png', [0, 99], [33, 33],
-                               0.5, [0, 1, 2, 1]);
 
-goblinSpriteLe = new Sprite([birdxpos-16,birdypos-16],'../images/a.png', [0, 33], [33, 33],
-                               0.5, [0, 1, 2, 1]);
-goblinSpriteRi = new Sprite([birdxpos-16,birdypos-16],'../images/a.png', [0, 66], [33, 33],
-                               0.5, [0, 1, 2, 1]);
