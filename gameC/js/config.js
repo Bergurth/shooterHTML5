@@ -62,22 +62,26 @@ var wilhelm_scream=createsoundbite('../sounds/wilhelm_scream.mp3');
 
 
 // Images
-
-var TIEwar = new Image();
-TIEwar.src ='../images/tie-fighter-space-wars.jpg'; 
-
-var TIE1 = new Image();
-//TIE1.src ='../images/TIE2.jpg';
-TIE1.src = "../images/280px-PNG_transparency_demonstration_1.png";
-
-//var troll = new Image();
-//troll.src ='../images/trollhammer.png';
-
-// troll position
 var imgChar = new Image();
 //imgChar.src = "http://www.elfquest.com/social/file/pic/photo/2012/01/TrollHammer-ogre_500.png";
 imgChar.src = "../images/trollhammer.png";
-//imgChar.src = "../images/070-Goblin04.png";
+
+var arrow_img = new Image();
+arrow_img.src = "../images/S_Bow01.png";
+var rock_img = new Image();
+rock_img.src = "../images/W_Fist003.png";
+// http://stackoverflow.com/questions/7698949/moving-the-start-position-of-canvas-pattern
+// create new image object to use as pattern
+var background = new Image();
+background.src = "../images/2.jpg";
+//  img.onload = 
+
+
+// This is camera coordinates:
+var fix_xpos = 400;
+var fix_ypos = 400;
+
+// This is player coordinates: in the world. world coordinates:
 var xpos = 100;
 var ypos = 100;
 var width = 91;
@@ -156,16 +160,11 @@ Sprite.prototype.render = function(ctx) {
 	
     x += frame * this.size[0];
     
-	console.log("rendering goblin");
-    ctx.drawImage(this.image,
+	ctx.drawImage(this.image,
                   x, y,
                   this.size[0], this.size[1],
                   this.location[0], this.location[1],
                   this.size[0], this.size[1]);
 }
 
-
-goblinSprite = new Sprite([birdxpos-16,birdypos-16],'../images/a.png', [0, 0], [33, 33],
-                               0.5, [0, 1, 2, 1], 'front');
-
-
+goblinSprite = new Sprite([birdxpos-16,birdypos-16],'../images/a.png', [0, 0], [33, 33], 0.5, [0, 1, 2, 1], 'front');

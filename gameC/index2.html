@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Shoot the balloons</title> 
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Inconsolata"> 
+		<link rel="shortcut icon" id="dynamic-favicon" type="image/png" href="../images/favicon.ico">
+		<title>Troll RPG</title> 
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
         <script type="text/javascript" 
         src="js/jquery.min.js">
@@ -75,7 +77,6 @@
 					<p>Health:</p>
 					<div class="progress">
 					  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-						<!-- we're not using aria-valuenow for now i think, just width -->
 						<span >100</span>
 					  </div>
 					</div>
@@ -83,7 +84,7 @@
 					<br>
 					<br>
 					<br>
-					<button type="button" class="btn btn-success" onclick="initiateGame(layer1,layer2,layer3,layer4);"> <span class="glyphicon glyphicon-tower"></span> New game</button>
+					<button type="button" class="btn btn-success" onclick="initiateGame();"> <span class="glyphicon glyphicon-tower"></span> New game</button>
                     
                 </div>
             </div>

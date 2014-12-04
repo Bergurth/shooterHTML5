@@ -25,6 +25,10 @@ function sprite (options) {
     return that;
 }
 
+*** multiplayer html5 
+
+see this https://github.com/tadast/webattle.js/tree/master
+
 **** code
 
 <!doctype html>
