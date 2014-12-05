@@ -68,10 +68,12 @@ function checkBulletsHit() {
 			&& (bullet.curr_pos[0] ) < (birdxpos + hitbox) 
 			&& (birdypos - hitbox) < bullet.curr_pos[1]
 			&& bullet.curr_pos[1] < (birdypos + hitbox) 
-			&& countAmmunition > 0) {
-				// some winning condition
+			) {
 				wilhelm_scream.play();
+				$('#loot').append('<img src="../images/Icons34x34byAilsEnglish2013/E_Gold01.png"></img>');
 				countShotBirds++;
+				writeGameState();
+								
 				createRandomBird();
 			}
 		}

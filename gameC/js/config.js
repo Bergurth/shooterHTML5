@@ -4,7 +4,6 @@ var fps = 50;
 var refreshRate = 1000/fps;
 var speed = 100/fps;
 var countShotBirds = 0;
-var countAmmunition = 100;
 var canvaswidth = 900; // we can use jquery to adjust this to user screen
 var canvasheight = 900; // 
 

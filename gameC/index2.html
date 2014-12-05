@@ -9,6 +9,8 @@
         src="js/jquery.min.js">
         </script>
 		<script type="text/javascript" src="js/lib.js"></script>
+		<script type="text/javascript" src="js/collision.js"></script>
+		<script type="text/javascript" src="js/sidebar.js"></script>
 		<script type="text/javascript" src="js/enemy.js"></script>
 		<script type="text/javascript" src="js/player.js"></script>
 		<script type="text/javascript" src="js/bullet.js"></script>
@@ -31,7 +33,7 @@
                     position:absolute;
                     left:0px;
                     top:0px;
-                    cursor:crosshair; 
+                    cursor:url('../images/cursor.png'), pointer; 
                     background:url(../images/background.jpg);
                     " height="300px" width="400">
                     This text is displayed if your browser does not support HTML5 Canvas.
@@ -41,7 +43,7 @@
                     position:absolute;
                     left:0px;
                     top:0px;
-                    cursor:crosshair; 
+                    cursor:pointer; 
                     " height="300px" width="400">
                     This text is displayed if your browser does not support HTML5 Canvas.
                     </canvas>
@@ -50,7 +52,7 @@
                     position:absolute;
                     left:0px;
                     top:0px;
-                    cursor:crosshair; 
+                    cursor:pointer; 
                     " height="300px" width="400">
                     This text is displayed if your browser does not support HTML5 Canvas.
                     </canvas>
@@ -59,7 +61,7 @@
                     position:absolute;
                     left:0px;
                     top:0px;
-                    cursor:crosshair; 
+                    cursor:url('../images/cursor.png'), pointer; 
                     " height="300px" width="400">
                     This text is displayed if your browser does not support HTML5 Canvas.
                     </canvas>
@@ -89,6 +91,7 @@
 					<p>Level: <span id="level"></span></p>
 					<p>XP: <span id="xp"></span></p>
 					<br>
+					<p>Loot: <span id="loot"></span></p>
 					<br>
 					<br>
 					<button type="button" class="btn btn-success" onclick="initiateGame();"> <span class="glyphicon glyphicon-tower"></span> New game</button>
