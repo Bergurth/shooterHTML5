@@ -23,7 +23,7 @@ var game_over = false;
 var lastTime;
 
 $(document).ready(function() {
-	music.play();
+	// music.play();
 	
 	// layer1.width = $('.canvas-container').width();
 	layer1 = document.getElementById('layer1'); // ná canvas!
@@ -62,7 +62,7 @@ $(document).ready(function() {
 		var time_between_arrows = 170; // milliseconds
 		if(last_fired + time_between_arrows < Date.now()) {
 			last_fired = Date.now();
-			countAmmunition--;
+			// countAmmunition--; // endless ammunition is better
 			laser.playclip();
 			var position = $(layer1).offset(); // hér var $(example).position() sem var ekki lengur rétt
 			var x = e.pageX-position.left; // mouse x
@@ -148,14 +148,26 @@ function redraw_background(img, offset_x, offset_y){
 	ctx1.translate(-offset_x, -offset_y);
 }
 
-
-
 function writeGameState() {    
+	var goblins_shot;
+	if(countShotBirds == 1) {
+		goblins_shot = countShotBirds+" goblin";
+	}
+	else {
+		goblins_shot = countShotBirds+" goblins";
+	}
+	$('#goblin_count').html(goblins_shot);
+	var xp = countShotBirds*10;
+	$('#xp').html(xp);
+	var lvl = Math.max(0, Math.floor(Math.log(xp)));
+	$('#level').html(lvl);
+	/*
     ctx3.fillStyle = '#000';
     ctx3.font = '30px verdana';
     ctx3.textBaseline = 'top';
     ctx3.fillText('You have '+countAmmunition+' shots left',30,0);
     ctx3.fillText('You have shot '+countShotBirds+' balloons.',30,30);
+	*/
 }
 
 function writeGameOver() {    
@@ -169,8 +181,10 @@ function writeGameOver() {
 }
 
 function clearGameState() {
-    ctx3.fillStyle = "rgb(255,255,255)";
+    /*
+	ctx3.fillStyle = "rgb(255,255,255)";
     ctx3.fillRect(0,0,500,100);  
+	*/
 }
 
 function collisionWithWalls() {
