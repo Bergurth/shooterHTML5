@@ -1,7 +1,9 @@
 function clearGoblin() {
     //if (spriteCounter%2 == 0){
         ctx2.clearRect(birdxpos-20-xpos, birdypos-20-ypos, 45, 45);
-        ctx2.clearRect(goblins[0].location[0]-20-xpos, goblins[0].location[0]-20-ypos, 45, 45);
+		for (i=0; i < goblins.length ; i++){
+        ctx2.clearRect(goblins[i].location[0], goblins[i].location[1], 45, 45);
+		}
     //}
 }
 
