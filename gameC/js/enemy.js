@@ -1,6 +1,7 @@
 function clearGoblin() {
     //if (spriteCounter%2 == 0){
         ctx2.clearRect(birdxpos-20-xpos, birdypos-20-ypos, 45, 45);
+        ctx2.clearRect(goblins[0].location[0]-20-xpos, goblins[0].location[0]-20-ypos, 45, 45);
     //}
 }
 
@@ -22,6 +23,7 @@ function createRandomBird() {
 	var random3 = Math.floor(Math.random()*150)+50; 
 	birdcolor = "rgb("+random1+","+random2+","+random3+")";
 	goblinSprite.location = [birdxpos-16-xpos,birdypos-16-ypos];
+	goblins.push( new Sprite([birdxpos-56-xpos,birdypos-56-ypos],'../images/a.png', [0, 0], [33, 33], 0.5, [0, 1, 2, 1], 'front') );
 }
 
 function drawBird() {
@@ -38,7 +40,9 @@ function drawBird() {
     //if (spriteCounter%3 == 0){
     //    clearGoblin();
     //}
-   
+	
+	// for each goblin
+	// goblinSprite = goblins[0];
     if(birdKind=="horiz"){
 		if(leftright =="right") /* draw right goblin*/
 			goblinSprite.dir = 'right';
@@ -52,6 +56,7 @@ function drawBird() {
 			goblinSprite.dir = 'front';
     }
 	goblinSprite.render(ctx2);
+	goblins[0].render(ctx2);
 }
 
 function moveBird() {
@@ -76,5 +81,5 @@ function moveBird() {
 		else birdxpos -= speed;
 	}
 	goblinSprite.location = [birdxpos-16-xpos,birdypos-16-ypos];
-   
+	goblins[0].location = [birdxpos-56-xpos,birdypos-56-ypos];
 }

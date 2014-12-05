@@ -115,7 +115,11 @@ function gameLoop() {
 		var dt = (now - lastTime) / 1000.0
 	
 		spriteCounter++;
-		goblinSprite.update(spriteCounter);
+		for( i=0; i < goblins.len ; i++)
+		{
+			goblins[i].update(spriteCounter);
+		}
+		//goblinSprite.update(spriteCounter);
 		if(charMoving){
 			playerSprite.update(dt);
 		}
@@ -133,6 +137,7 @@ function gameLoop() {
 		drawCharacter();
 		
 		redraw_background(background, -xpos, -ypos);
+	
 		
 		lastTime = now;
 	}
