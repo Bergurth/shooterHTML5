@@ -119,7 +119,7 @@ function gameLoop() {
 		{
 			goblins[i].update(spriteCounter);
 		}
-		//goblinSprite.update(spriteCounter);
+		goblinSprite.update(spriteCounter);
 		if(charMoving){
 			playerSprite.update(dt);
 		}
