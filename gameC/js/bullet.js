@@ -72,6 +72,7 @@ function checkBulletsHit() {
 				wilhelm_scream.play();
 				$('#loot').append('<img src="../images/Icons34x34byAilsEnglish2013/E_Gold01.png"></img>');
 				countShotBirds++;
+				destroyGoblin(goblins[0]);
 				writeGameState();
 								
 				createRandomBird();

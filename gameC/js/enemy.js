@@ -7,6 +7,11 @@ function clearGoblin() {
     //}
 }
 
+function destroyGoblin(sprite) {
+	ctx2.clearRect(sprite.location[0], sprite.location[1], 45, 45);
+	goblins.pop();
+}
+
 function createRandomBird() {
 	clearGoblin(); // clear old
 	var type = Math.random()<0.5;
@@ -26,6 +31,7 @@ function createRandomBird() {
 	birdcolor = "rgb("+random1+","+random2+","+random3+")";
 	goblinSprite.location = [birdxpos-16-xpos,birdypos-16-ypos];
 	goblins.push( new Sprite([birdxpos-56-xpos,birdypos-56-ypos],'../images/a.png', [0, 0], [33, 33], 0.5, [0, 1, 2, 1], 'front') );
+	console.log(goblins);
 }
 
 function drawBird() {
