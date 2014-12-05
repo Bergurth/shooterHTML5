@@ -1,6 +1,4 @@
 function writeGameState() {    
-	// only call this when goblins are killed ... currently it's called again and again, useless!
-	
 	var goblins_shot;
 	if(countShotBirds == 1) {
 		goblins_shot = countShotBirds+" goblin";
@@ -13,6 +11,11 @@ function writeGameState() {
 	$('#xp').html(xp);
 	var lvl = Math.max(1, Math.floor(Math.log(xp)));
 	$('#level').html(lvl);
+}
+
+function gameOver() {
+	$('#health').hide();
+	$('#death').show();
 }
 
 function getLife() {

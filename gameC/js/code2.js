@@ -23,7 +23,7 @@ var game_over = false;
 var lastTime;
 
 $(document).ready(function() {
-	// music.play();
+	music.play();
 	
 	// layer1.width = $('.canvas-container').width();
 	layer1 = document.getElementById('layer1'); // ná canvas!
@@ -97,6 +97,9 @@ function initiateGame() {
 	spriteCounter = 0;
 	setLife(100);
 	writeGameState();
+	$('#health').show();
+	$('#death').hide();
+	$('#loot').empty();
 	ctx1.clearRect(0,0,canvaswidth,canvasheight);
 	ctx2.clearRect(0,0,canvaswidth,canvasheight);
 	ctx3.clearRect(0,0,canvaswidth,canvasheight);
@@ -104,7 +107,10 @@ function initiateGame() {
 }
 
 function gameLoop() {
-	if(!game_over) {
+	if(game_over) {
+		gameOver();
+	}
+	else {
 		var now = Date.now();
 		var dt = (now - lastTime) / 1000.0
 	
@@ -129,8 +135,5 @@ function gameLoop() {
 		redraw_background(background, -xpos, -ypos);
 		
 		lastTime = now;
-	}
-	else {
-		// write game over, or stop calling this
 	}
 }
