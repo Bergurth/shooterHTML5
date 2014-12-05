@@ -1,3 +1,14 @@
+function redraw_background(img, offset_x, offset_y){
+	// create pattern
+	var ptrn = ctx1.createPattern(img,'repeat');
+	ctx1.fillStyle = ptrn;
+	var fill_x = $('.canvas-container').width();; // could be canvas.width
+	var fill_y = canvasheight; // could be canvas.height
+	ctx1.translate(offset_x, offset_y); 
+	ctx1.fillRect(-offset_x, -offset_y, fill_x, fill_y);
+	ctx1.translate(-offset_x, -offset_y);
+}
+
 function drawRotatedImage(image, x, y, angle, context) { 
     // save the current co-ordinate system 
     // before we screw with it

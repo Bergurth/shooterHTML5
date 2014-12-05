@@ -62,7 +62,6 @@ $(document).ready(function() {
 		var time_between_arrows = 170; // milliseconds
 		if(last_fired + time_between_arrows < Date.now()) {
 			last_fired = Date.now();
-			// countAmmunition--; // endless ammunition is better
 			laser.playclip();
 			var position = $(layer1).offset(); // hér var $(example).position() sem var ekki lengur rétt
 			var x = e.pageX-position.left; // mouse x
@@ -95,9 +94,9 @@ function initiateGame() {
 	updown = "up";
 	leftright="left";
 	countShotBirds = 0;
-	countAmmunition = 100;
 	spriteCounter = 0;
 	setLife(100);
+	writeGameState();
 	ctx1.clearRect(0,0,canvaswidth,canvasheight);
 	ctx2.clearRect(0,0,canvaswidth,canvasheight);
 	ctx3.clearRect(0,0,canvaswidth,canvasheight);
@@ -105,19 +104,16 @@ function initiateGame() {
 }
 
 function gameLoop() {
-	var now = Date.now();
-    var dt = (now - lastTime) / 1000.0
 	if(!game_over) {
+		var now = Date.now();
+		var dt = (now - lastTime) / 1000.0
+	
 		spriteCounter++;
 		goblinSprite.update(spriteCounter);
 		if(charMoving){
 			playerSprite.update(dt);
 		}
 	   
-		clearGameState();
-		if (countAmmunition > 0) writeGameState();
-		else writeGameOver();
-		
 		updateBullets();
 		goblinCollisionWithPlayer();
 		collisionWithWalls();
@@ -131,122 +127,10 @@ function gameLoop() {
 		drawCharacter();
 		
 		redraw_background(background, -xpos, -ypos);
-	}
-	 lastTime = now;
-}
-
-// ==============================
-
-function redraw_background(img, offset_x, offset_y){
-	// create pattern
-	var ptrn = ctx1.createPattern(img,'repeat');
-	ctx1.fillStyle = ptrn;
-	var fill_x = $('.canvas-container').width();; // could be canvas.width
-	var fill_y = canvasheight; // could be canvas.height
-	ctx1.translate(offset_x, offset_y); 
-	ctx1.fillRect(-offset_x, -offset_y, fill_x, fill_y);
-	ctx1.translate(-offset_x, -offset_y);
-}
-
-function writeGameState() {    
-	var goblins_shot;
-	if(countShotBirds == 1) {
-		goblins_shot = countShotBirds+" goblin";
+		
+		lastTime = now;
 	}
 	else {
-		goblins_shot = countShotBirds+" goblins";
-	}
-	$('#goblin_count').html(goblins_shot);
-	var xp = countShotBirds*10;
-	$('#xp').html(xp);
-	var lvl = Math.max(0, Math.floor(Math.log(xp)));
-	$('#level').html(lvl);
-	/*
-    ctx3.fillStyle = '#000';
-    ctx3.font = '30px verdana';
-    ctx3.textBaseline = 'top';
-    ctx3.fillText('You have '+countAmmunition+' shots left',30,0);
-    ctx3.fillText('You have shot '+countShotBirds+' balloons.',30,30);
-	*/
-}
-
-function writeGameOver() {    
-    ctx3.fillStyle = '#000';
-    ctx3.font = '50px verdana';
-    ctx3.textBaseline = 'top';
-    ctx3.fillText('Game over! You got '+countShotBirds+' balloons',30,0);
-    ctx3.font = '30px verdana';
-    ctx3.fillText('To play again, hit New Game!',30,50);
-    exit();
-}
-
-function clearGameState() {
-    /*
-	ctx3.fillStyle = "rgb(255,255,255)";
-    ctx3.fillRect(0,0,500,100);  
-	*/
-}
-
-function collisionWithWalls() {
-	// Fjarlægja þetta fall fyrst veggir eru ekki lengur til!!? 
-	// Skipta um nafn og búa til nýtt fall
-	// so enemies are generated near player!
-    if(birdxpos < birdsize/2) leftright="right";
-    if(birdxpos > (canvaswidth-birdsize/2) ) leftright="left";
-    
-    if(birdypos < birdsize/2) updown="down";
-    if(birdypos > (canvasheight-birdsize/2)) updown="up";
-}
-
-function didCollideWithPlayer(x, y) {
-	var give_me_a_break = 15; // this is so you can barely escape with the knees 
-	if( (x-xpos) > (fix_xpos + give_me_a_break) 
-	&& (x-xpos) < (fix_xpos + width - give_me_a_break) 
-	&& (y-ypos) > (fix_ypos + give_me_a_break) 
-	&& (y-ypos) < (fix_ypos + height - give_me_a_break) ) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
-function goblinCollisionWithPlayer() {
-    if( didCollideWithPlayer(birdxpos, birdypos)) {
-		var life = getLife();
-		var dmg = 20;
-		if (life > dmg ) { // player still lives
-			annoyed1.play();
-			setLife( life - dmg);
-			createRandomBird(); // create new bird
-			// life -10
-		}
-		else { // player died
-			setLife(0);
-			// display score
-		}
-        // listen to: http://www.thanatosrealms.com/war2/horde-sounds
-    }
-}
-
-function getLife() {
-	return $('.progress-bar span').html();
-}
-
-function setLife (hp) {
-	$('.progress-bar span').html(hp);
-	$('.progress-bar').css('width',hp+'%')
-	$('.progress-bar').attr('aria-valuenow', hp)
-	if(hp > 60) {
-		$('.progress-bar').attr('class', 'progress-bar progress-bar-success');
-	}
-	else if(hp == 0) {
-		game_over = true;
-		death.play();
-	} else if (hp < 30 ) {
-		$('.progress-bar').attr('class', 'progress-bar progress-bar-danger');
-	}
-	else { // 20 <= hp < 50
-		$('.progress-bar').attr('class', 'progress-bar progress-bar-warning');
+		// write game over, or stop calling this
 	}
 }
