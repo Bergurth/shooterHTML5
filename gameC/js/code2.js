@@ -9,9 +9,9 @@ var ctx4;
 
 var gameLoopCounter = 0;
 var spriteCounter = 0;
-var chardirection = "down";
-var charMoving = false;
-var direction_arr = {"down": 0, "left": 1, "right": 2, "up": 3};
+
+//var charMoving = false;
+//var direction_arr = {"down": 0, "left": 1, "right": 2, "up": 3};
 
 var sprite_offset_x = 46;
 var sprite_offset_y = 20;
@@ -120,7 +120,7 @@ function gameLoop() {
 			goblins[i].update(spriteCounter);
 		}
 		goblinSprite.update(spriteCounter);
-		if(charMoving){
+		if(sh_player.charMoving){
 			playerSprite.update(dt);
 		}
 	   

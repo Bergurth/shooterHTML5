@@ -60,16 +60,11 @@ var xpos = 100;
 var ypos = 100;
 
 
-var xstart = 4
-var sx = xstart;
-var sy = 0;
-var swidth = width;
-var sheight = height;
 
 var gameLoopCounter = 0;
-var chardirection = "down";
-var charMoving = false;
-var direction_arr = {"down": 0, "left": 1, "right": 2, "up": 3};
+
+//var charMoving = false;
+//var direction_arr = {"down": 0, "left": 1, "right": 2, "up": 3};
 
 var annoyed1=new Audio("../sounds/annoyed1.wav");
 var annoyed2=new Audio("../sounds/annoyed2.wav");

@@ -1,5 +1,8 @@
 
 var sh_player =( function () {
+
+	var charMoving = false;
+
 function clearCharacter() {
 	ctx3.clearRect(fix_xpos,fix_ypos,width,height);
 }
@@ -23,9 +26,9 @@ function moveCharacter() {
 		playerSprite.dir = 'back';
     }
 	if (keydown.left || keydown.right || keydown.down || keydown.up || keydown.a || keydown.s || keydown.d || keydown.w) {
-		charMoving = true;
+		self.charMoving = true;
 	}
-	else charMoving = false;
+	else self.charMoving = false;
 }
 
 function drawCharacter() {	
@@ -33,7 +36,9 @@ function drawCharacter() {
 }
 
 return {
-       
+       	charMoving : charMoving,
+
+
         clearCharacter:  clearCharacter,
         moveCharacter:   moveCharacter,
         drawCharacter:   drawCharacter
