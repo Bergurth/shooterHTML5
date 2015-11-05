@@ -1,3 +1,5 @@
+
+var sh_player =( function () {
 function clearCharacter() {
 	ctx3.clearRect(fix_xpos,fix_ypos,width,height);
 }
@@ -29,3 +31,12 @@ function moveCharacter() {
 function drawCharacter() {	
 	playerSprite.render(ctx3);
 }
+
+return {
+       
+        clearCharacter:  clearCharacter,
+        moveCharacter:   moveCharacter,
+        drawCharacter:   drawCharacter
+    };
+
+}());

@@ -79,8 +79,8 @@ laser.volume=0.1; // var alltof hátt
 
 
 goblinSprite = new Sprite([birdxpos-16,birdypos-16],'../images/a.png', [0, 0], [33, 33], 0.5, [0, 1, 2, 1], 'front');
-goblinSprite2 = new Sprite([fix_xpos-116,fix_xpos-116],'../images/a.png', [0, 0], [33, 33], 0.5, [0, 1, 2, 1], 'front');
-var goblins = [goblinSprite2]; 
+//goblinSprite2 = new Sprite([fix_xpos-116,fix_xpos-116],'../images/a.png', [0, 0], [33, 33], 0.5, [0, 1, 2, 1], 'front');
+var goblins = [goblinSprite]; 
 
 
 playerSprite = new Sprite([fix_xpos,fix_ypos],'../images/trollhammer.png', [5, 0], [91, 125], 6, [0, 1, 2, 3, 2, 1], 'front');

@@ -132,9 +132,9 @@ function gameLoop() {
 		moveBird();
 		drawBird();
 
-		clearCharacter();
-		moveCharacter();
-		drawCharacter();
+		sh_player.clearCharacter();
+		sh_player.moveCharacter();
+		sh_player.drawCharacter();
 		
 		redraw_background(background, -xpos, -ypos);
 	
