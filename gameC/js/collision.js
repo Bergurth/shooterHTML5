@@ -25,16 +25,16 @@ function didCollideWithPlayer(x, y) {
 function goblinCollisionWithPlayer() {
     if( didCollideWithPlayer(birdxpos, birdypos)) {
 		destroyGoblin(goblins[0]);
-		var life = getLife();
+		var life = sh_sidebar.getLife();
 		var dmg = 20;
 		if (life > dmg ) { // player still lives
 			annoyed1.play();
-			setLife( life - dmg);
+			sh_sidebar.setLife( life - dmg);
 			createRandomBird(); // create new bird
 			// life -10
 		}
 		else { // player died
-			setLife(0);
+			sh_sidebar.setLife(0);
 			// display score
 		}
         // listen to: http://www.thanatosrealms.com/war2/horde-sounds

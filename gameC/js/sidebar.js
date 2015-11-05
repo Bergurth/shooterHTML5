@@ -1,3 +1,5 @@
+var sh_sidebar =( function () {
+
 function writeGameState() {    
 	var goblins_shot;
 	if(countShotBirds == 1) {
@@ -39,3 +41,12 @@ function setLife (hp) {
 		$('.progress-bar').attr('class', 'progress-bar progress-bar-warning');
 	}
 }
+
+return {
+       	writeGameState : writeGameState,
+       	gameOver      : gameOver,
+       	getLife        : getLife,
+       	setLife        : setLife
+    };
+
+}());

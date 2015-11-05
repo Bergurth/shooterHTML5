@@ -95,8 +95,8 @@ function initiateGame() {
 	leftright="left";
 	countShotBirds = 0;
 	spriteCounter = 0;
-	setLife(100);
-	writeGameState();
+	sh_sidebar.setLife(100);
+	sh_sidebar.writeGameState();
 	$('#health').show();
 	$('#death').hide();
 	$('#loot').empty();
@@ -108,7 +108,7 @@ function initiateGame() {
 
 function gameLoop() {
 	if(game_over) {
-		gameOver();
+		sh_sidebar.gameOver();
 	}
 	else {
 		var now = Date.now();

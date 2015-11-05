@@ -73,21 +73,21 @@ function checkBulletsHit() {
 				$('#loot').append('<img src="../images/Icons34x34byAilsEnglish2013/E_Gold01.png"></img>');
 				countShotBirds++;
 				destroyGoblin(goblins[0]);
-				writeGameState();
+				sh_sidebar.writeGameState();
 								
 				createRandomBird();
 			}
 		}
 		if (bullet.type =='goblin') {
 			if( didCollideWithPlayer(bullet.curr_pos[0], bullet.curr_pos[1])) {
-				var life = getLife();
+				var life = sh_sidebar.getLife();
 				var dmg = 10;
 				if (life > dmg ) { // player still lives
 					annoyed1.play();
-					setLife( life - dmg);
+					sh_sidebar.setLife( life - dmg);
 				}
 				else { // player died
-					setLife(0);
+					sh_sidebar.setLife(0);
 					// ogre died game over
 					// display score
 				}
