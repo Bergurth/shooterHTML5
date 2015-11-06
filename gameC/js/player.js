@@ -26,9 +26,9 @@ function moveCharacter() {
 		playerSprite.dir = 'back';
     }
 	if (keydown.left || keydown.right || keydown.down || keydown.up || keydown.a || keydown.s || keydown.d || keydown.w) {
-		self.charMoving = true;
+		sh_player.charMoving = true;
 	}
-	else self.charMoving = false;
+	else sh_player.charMoving = false;
 }
 
 function drawCharacter() {	

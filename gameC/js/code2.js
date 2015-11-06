@@ -10,8 +10,7 @@ var ctx4;
 var gameLoopCounter = 0;
 var spriteCounter = 0;
 
-//var charMoving = false;
-//var direction_arr = {"down": 0, "left": 1, "right": 2, "up": 3};
+sh_player.charMoving = false;
 
 var sprite_offset_x = 46;
 var sprite_offset_y = 20;
