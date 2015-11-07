@@ -1,3 +1,4 @@
+
 function collisionWithWalls() {
 	// Fjarlægja þetta fall fyrst veggir eru ekki lengur til!!? 
 	// Skipta um nafn og búa til nýtt fall

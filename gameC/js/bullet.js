@@ -16,8 +16,8 @@ function goblinFire() {
 	// WORLD POSITION VS VIEW POSITION
 	*/
 	
-	bullets.push({ start_pos: [birdxpos, birdypos],
-					curr_pos: [birdxpos, birdypos],
+	bullets.push({ start_pos: [goblins[0].location[0] + xpos + goblins[0].size[0]/2, goblins[0].location[1] + ypos],
+					curr_pos: [goblins[0].location[0] + xpos + goblins[0].size[0]/2, goblins[0].location[1] + ypos],
 					end_pos: [xpos+fix_xpos+40, ypos+fix_ypos+40],
 					speed: 4,
 					type: 'goblin',
@@ -64,10 +64,10 @@ function checkBulletsHit() {
 		if ( bullet.type =='troll') { // we are shooting goblins
 			var hitbox= 10;
 			
-			if( (birdxpos - hitbox) < bullet.curr_pos[0]
-			&& (bullet.curr_pos[0] ) < (birdxpos + hitbox) 
-			&& (birdypos - hitbox) < bullet.curr_pos[1]
-			&& bullet.curr_pos[1] < (birdypos + hitbox) 
+			if( (goblins[0].location[0] + xpos + goblins[0].size[0]/2 - hitbox) < bullet.curr_pos[0]
+			&& (bullet.curr_pos[0] ) < (goblins[0].location[0] + xpos + goblins[0].size[0]/2 + hitbox) 
+			&& (goblins[0].location[1] + ypos + goblins[0].size[1]/2 - hitbox) < bullet.curr_pos[1]
+			&& bullet.curr_pos[1] < (goblins[0].location[1] + ypos + goblins[0].size[1]/2 + hitbox) 
 			) {
 				wilhelm_scream.play();
 				$('#loot').append('<img src="../images/Icons34x34byAilsEnglish2013/E_Gold01.png"></img>');
