@@ -29,8 +29,13 @@ function createRandomBird() {
 	var random2 = Math.floor(Math.random()*150)+50; 
 	var random3 = Math.floor(Math.random()*150)+50; 
 	birdcolor = "rgb("+random1+","+random2+","+random3+")";
-	goblinSprite.location = [birdxpos-16-xpos,birdypos-16-ypos];
-	goblins.push( new Sprite([birdxpos-56-xpos,birdypos-56-ypos],'../images/a.png', [0, 0], [33, 33], 0.5, [0, 1, 2, 1], 'front') );
+	
+	//original working
+	//goblinSprite.location = [birdxpos-16-xpos,birdypos-16-ypos];
+	
+	//goblins.push( new Sprite([birdxpos-56-xpos,birdypos-56-ypos],'../images/a.png', [0, 0], [33, 33], 0.5, [0, 1, 2, 1], 'front') );
+	goblins.push( new Sprite([birdxpos+18-xpos,birdypos+18-ypos],'../images/a.png', [0, 0], [33, 33], 0.5, [0, 1, 2, 1], 'front') );
+
 	console.log(goblins);
 }
 
@@ -52,18 +57,26 @@ function drawBird() {
 	// for each goblin
 	// goblinSprite = goblins[0];
     if(birdKind=="horiz"){
-		if(leftright =="right") /* draw right goblin*/
-			goblinSprite.dir = 'right';
-		else /* draw left goblin */
-			goblinSprite.dir = 'left';
+		if(leftright =="right") /* draw right goblin*/{
+			//goblinSprite.dir = 'right';
+			goblins[0].dir = 'right'
+		}
+		else /* draw left goblin */{
+			//goblinSprite.dir = 'left';
+			goblins[0].dir = 'left'
+		}
     }
     else {
-		if(updown =="up") /* draw up goblin */
-			goblinSprite.dir = 'back';
-		else /* draw down goblin*/
-			goblinSprite.dir = 'front';
+		if(updown =="up") /* draw up goblin */{
+			goblins[0].dir = 'back'
+			//goblinSprite.dir = 'back';
+		}
+		else /* draw down goblin*/{
+			//goblinSprite.dir = 'front';
+			goblins[0].dir = 'front'
+		}
     }
-	goblinSprite.render(ctx2);
+	//goblinSprite.render(ctx2);
 	goblins[0].render(ctx2);
 }
 
@@ -88,6 +101,6 @@ function moveBird() {
 		if(leftright =="right") birdxpos += speed;
 		else birdxpos -= speed;
 	}
-	goblinSprite.location = [birdxpos-16-xpos,birdypos-16-ypos];
-	goblins[0].location = [birdxpos-56-xpos,birdypos-56-ypos];
+	//goblinSprite.location = [birdxpos-16-xpos,birdypos-16-ypos];
+	goblins[0].location = [birdxpos-18-xpos,birdypos-18-ypos];
 }
