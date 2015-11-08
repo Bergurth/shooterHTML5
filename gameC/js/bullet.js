@@ -15,14 +15,18 @@ function goblinFire() {
 	
 	// WORLD POSITION VS VIEW POSITION
 	*/
-	
-	bullets.push({ start_pos: [goblins[0].location[0] + xpos + goblins[0].size[0]/2, goblins[0].location[1] + ypos],
-					curr_pos: [goblins[0].location[0] + xpos + goblins[0].size[0]/2, goblins[0].location[1] + ypos],
+	for( i=0; i < goblins.length; i++)
+		{
+				var gxpos = goblins[i].absloc[0];
+				var gypos = goblins[i].absloc[1];
+	bullets.push({ start_pos: [gxpos, gypos],
+					curr_pos: [gxpos, gypos],
 					end_pos: [xpos+fix_xpos+40, ypos+fix_ypos+40],
 					speed: 4,
 					type: 'goblin',
 					i: 0
 	});
+	}
 }
 
 function updateBullets() {
@@ -64,19 +68,30 @@ function checkBulletsHit() {
 		if ( bullet.type =='troll') { // we are shooting goblins
 			var hitbox= 10;
 			
-			if( (goblins[0].location[0] + xpos + goblins[0].size[0]/2 - hitbox) < bullet.curr_pos[0]
-			&& (bullet.curr_pos[0] ) < (goblins[0].location[0] + xpos + goblins[0].size[0]/2 + hitbox) 
-			&& (goblins[0].location[1] + ypos + goblins[0].size[1]/2 - hitbox) < bullet.curr_pos[1]
-			&& bullet.curr_pos[1] < (goblins[0].location[1] + ypos + goblins[0].size[1]/2 + hitbox) 
-			) {
-				wilhelm_scream.play();
-				$('#loot').append('<img src="../images/Icons34x34byAilsEnglish2013/E_Gold01.png"></img>');
-				countShotBirds++;
-				destroyGoblin(goblins[0]);
-				sh_sidebar.writeGameState();
-								
-				createRandomBird();
+				var bullposx = bullet.curr_pos[0];
+				var bullposy = bullet.curr_pos[1];
+			//goblins[0].absloc[0], goblins[0].absloc[1]
+			for( j=0; j < goblins.length; j++)
+			{
+				var gxpos = goblins[j].absloc[0];
+				var gypos = goblins[j].absloc[1];
+				
+				if( (  gxpos - hitbox) < bullposx
+				&& (bullposx ) < ( gxpos + hitbox) 
+				&& (   gypos - hitbox) < bullposy
+				&& bullposy < (   gypos + hitbox) 
+				) 
+				{
+					wilhelm_scream.play();
+					$('#loot').append('<img src="../images/Icons34x34byAilsEnglish2013/E_Gold01.png"></img>');
+					countShotBirds++;
+					destroyGoblin(goblins[j],j);
+					sh_sidebar.writeGameState();
+									
+					createRandomBird();
+				}
 			}
+
 		}
 		if (bullet.type =='goblin') {
 			if( didCollideWithPlayer(bullet.curr_pos[0], bullet.curr_pos[1])) {
