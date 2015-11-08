@@ -25,7 +25,7 @@ function didCollideWithPlayer(x, y) {
 
 function goblinCollisionWithPlayer() {
     if( didCollideWithPlayer(goblins[0].location[0] + xpos + goblins[0].size[0]/2, goblins[0].location[1] + ypos + goblins[0].size[1]/2)) {
-		destroyGoblin(goblins[0]);
+		destroyGoblin(goblins[0], 0);
 		var life = sh_sidebar.getLife();
 		var dmg = 20;
 		if (life > dmg ) { // player still lives

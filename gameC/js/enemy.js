@@ -7,9 +7,9 @@ function clearGoblin() {
     //}
 }
 
-function destroyGoblin(sprite) {
+function destroyGoblin(sprite, index) {
 	ctx2.clearRect(sprite.location[0], sprite.location[1], 45, 45);
-	goblins.pop();
+	goblins.splice(index, 1);
 }
 
 function createRandomBird() {
