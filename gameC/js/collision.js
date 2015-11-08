@@ -3,11 +3,11 @@ function collisionWithWalls() {
 	// Fjarlægja þetta fall fyrst veggir eru ekki lengur til!!? 
 	// Skipta um nafn og búa til nýtt fall
 	// so enemies are generated near player!
-    if(birdxpos < birdsize/2) leftright="right";
-    if(birdxpos > (canvaswidth-birdsize/2) ) leftright="left";
+    if(goblins[0].location[0] + xpos + goblins[0].size[0]/2 < birdsize/2) leftright="right";
+    if(goblins[0].location[0] + xpos + goblins[0].size[0]/2 > (canvaswidth-birdsize/2) ) leftright="left";
     
-    if(birdypos < birdsize/2) updown="down";
-    if(birdypos > (canvasheight-birdsize/2)) updown="up";
+    if(goblins[0].location[1] + ypos + goblins[0].size[1]/2 < birdsize/2) updown="down";
+    if(goblins[0].location[1] + ypos + goblins[0].size[1]/2 > (canvasheight-birdsize/2)) updown="up";
 }
 
 function didCollideWithPlayer(x, y) {
@@ -24,7 +24,7 @@ function didCollideWithPlayer(x, y) {
 }
 
 function goblinCollisionWithPlayer() {
-    if( didCollideWithPlayer(birdxpos, birdypos)) {
+    if( didCollideWithPlayer(goblins[0].location[0] + xpos + goblins[0].size[0]/2, goblins[0].location[1] + ypos + goblins[0].size[1]/2)) {
 		destroyGoblin(goblins[0]);
 		var life = sh_sidebar.getLife();
 		var dmg = 20;
