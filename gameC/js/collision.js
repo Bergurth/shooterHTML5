@@ -3,11 +3,16 @@ function collisionWithWalls() {
 	// Fjarlægja þetta fall fyrst veggir eru ekki lengur til!!? 
 	// Skipta um nafn og búa til nýtt fall
 	// so enemies are generated near player!
-    if(goblins[0].location[0] + xpos + goblins[0].size[0]/2 < birdsize/2) leftright="right";
-    if(goblins[0].location[0] + xpos + goblins[0].size[0]/2 > (canvaswidth-birdsize/2) ) leftright="left";
-    
-    if(goblins[0].location[1] + ypos + goblins[0].size[1]/2 < birdsize/2) updown="down";
-    if(goblins[0].location[1] + ypos + goblins[0].size[1]/2 > (canvasheight-birdsize/2)) updown="up";
+	for( i=0; i < goblins.length; i++)
+		{
+			var gxpos = goblins[i].absloc[0];
+			var gypos = goblins[i].absloc[1];
+		    if(gxpos < birdsize/2) leftright="right";
+		    if(gxpos > (canvaswidth-birdsize/2) ) leftright="left";
+		    
+		    if(gypos < birdsize/2) updown="down";
+		    if(gypos > (canvasheight-birdsize/2)) updown="up";
+		}
 }
 
 function didCollideWithPlayer(x, y) {
@@ -24,20 +29,29 @@ function didCollideWithPlayer(x, y) {
 }
 
 function goblinCollisionWithPlayer() {
-    if( didCollideWithPlayer(goblins[0].location[0] + xpos + goblins[0].size[0]/2, goblins[0].location[1] + ypos + goblins[0].size[1]/2)) {
-		destroyGoblin(goblins[0], 0);
-		var life = sh_sidebar.getLife();
-		var dmg = 20;
-		if (life > dmg ) { // player still lives
-			annoyed1.play();
-			sh_sidebar.setLife( life - dmg);
-			createRandomBird(); // create new bird
-			// life -10
+
+
+	for( i=0; i < goblins.length; i++)
+		{
+			var gxpos = goblins[0].absloc[0];
+			var gypos = goblins[0].absloc[1];
+		    if( didCollideWithPlayer(gxpos, gypos)) {
+				destroyGoblin(goblins[0], 0);
+				var life = sh_sidebar.getLife();
+				var dmg = 20;
+				if (life > dmg ) { // player still lives
+					annoyed1.play();
+					sh_sidebar.setLife( life - dmg);
+					createRandomBird(); // create new bird
+					// life -10
+				}
+				else { // player died
+					sh_sidebar.setLife(0);
+					// display score
+				}
+		        // listen to: http://www.thanatosrealms.com/war2/horde-sounds
+		    }
+
 		}
-		else { // player died
-			sh_sidebar.setLife(0);
-			// display score
-		}
-        // listen to: http://www.thanatosrealms.com/war2/horde-sounds
-    }
+
 }
