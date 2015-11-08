@@ -128,6 +128,12 @@ function gameLoop() {
 		}
 	   
 		updateBullets();
+
+		//adding new goblins
+		if(now % 6000 === 0){
+			createRandomBird();
+		}
+
 		goblinCollisionWithPlayer();
 		collisionWithWalls();
 		
@@ -141,6 +147,7 @@ function gameLoop() {
 		
 		redraw_background(background, -xpos, -ypos);
 	
+
 		
 		lastTime = now;
 	}
