@@ -58,53 +58,61 @@ function drawBird() {
 	
 	// for each goblin
 	// goblinSprite = goblins[0];
-    if(goblins[0].kind === "horiz"){
-		if(leftright =="right") /* draw right goblin*/{
-			//goblinSprite.dir = 'right';
-			goblins[0].dir = 'right'
+	for( i=0; i < goblins.length; i++)
+		{
+			var goblin = goblins[i];
+		    if(goblin.kind === "horiz"){
+				if(leftright =="right") /* draw right goblin*/{
+					//goblinSprite.dir = 'right';
+					goblin.dir = 'right'
+				}
+				else /* draw left goblin */{
+					//goblinSprite.dir = 'left';
+					goblin.dir = 'left'
+				}
+		    }
+		    else {
+				if(updown =="up") /* draw up goblin */{
+					goblin.dir = 'back'
+					//goblinSprite.dir = 'back';
+				}
+				else /* draw down goblin*/{
+					//goblinSprite.dir = 'front';
+					goblin.dir = 'front'
+				}
+		    }
+			//goblinSprite.render(ctx2);
+			goblin.render(ctx2);
 		}
-		else /* draw left goblin */{
-			//goblinSprite.dir = 'left';
-			goblins[0].dir = 'left'
-		}
-    }
-    else {
-		if(updown =="up") /* draw up goblin */{
-			goblins[0].dir = 'back'
-			//goblinSprite.dir = 'back';
-		}
-		else /* draw down goblin*/{
-			//goblinSprite.dir = 'front';
-			goblins[0].dir = 'front'
-		}
-    }
-	//goblinSprite.render(ctx2);
-	goblins[0].render(ctx2);
 }
 
 function moveBird() {
-	var random =Math.floor(Math.random()*45);
-	if(goblins[0].kind === "horiz"){
-    
-		if(random == 5) updown = "up";
-		if(random == 6) updown = "down";
-		if(updown =="up") goblins[0].absloc[1] -= speed;
-		else goblins[0].absloc[1] += speed;
+	for( i=0; i < goblins.length; i++)
+		{
+		var goblin = goblins[i];
+		var random =Math.floor(Math.random()*45);
+		if(goblin.kind === "horiz"){
+	    
+			if(random == 5) updown = "up";
+			if(random == 6) updown = "down";
+			if(updown =="up") goblin.absloc[1] -= speed;
+			else goblin.absloc[1] += speed;
 
-		if(leftright =="right") goblins[0].absloc[0] += speed;
-		else goblins[0].absloc[0] -= speed;
-	}
-	else {
-		if(random == 5) leftright = "up";
-		if(random == 6) leftright = "down";
-		if(updown =="up") goblins[0].absloc[1] -= speed;
-		else goblins[0].absloc[1] += speed;
+			if(leftright =="right") goblin.absloc[0] += speed;
+			else goblin.absloc[0] -= speed;
+		}
+		else {
+			if(random == 5) leftright = "up";
+			if(random == 6) leftright = "down";
+			if(updown =="up") goblin.absloc[1] -= speed;
+			else goblin.absloc[1] += speed;
 
-		if(leftright =="right") goblins[0].absloc[0] += speed;
-		else goblins[0].absloc[0] -= speed;
+			if(leftright =="right") goblin.absloc[0] += speed;
+			else goblin.absloc[0] -= speed;
+		}
+		//goblinSprite.location = [goblin.absloc[0]-16-xpos,goblin.absloc[1]-16-ypos];
+		goblin.location = [goblin.absloc[0]-goblin.size[0]/2-xpos,goblin.absloc[1]-goblin.size[1]/2-ypos];
 	}
-	//goblinSprite.location = [goblins[0].absloc[0]-16-xpos,goblins[0].absloc[1]-16-ypos];
-	goblins[0].location = [goblins[0].absloc[0]-goblins[0].size[0]/2-xpos,goblins[0].absloc[1]-goblins[0].size[1]/2-ypos];
 }
 
 // goblins[0].location[0] + xpos + goblins[0].size[0]/2  == birdxpos == goblins[0].absloc[0]
