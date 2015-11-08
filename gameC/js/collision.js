@@ -7,11 +7,11 @@ function collisionWithWalls() {
 		{
 			var gxpos = goblins[i].absloc[0];
 			var gypos = goblins[i].absloc[1];
-		    if(gxpos < birdsize/2) leftright="right";
-		    if(gxpos > (canvaswidth-birdsize/2) ) leftright="left";
+		    if(gxpos < birdsize/2) goblins[i].leftright="right";
+		    if(gxpos > (canvaswidth-birdsize/2) )goblins[i].leftright="left";
 		    
-		    if(gypos < birdsize/2) updown="down";
-		    if(gypos > (canvasheight-birdsize/2)) updown="up";
+		    if(gypos < birdsize/2) goblins[i].updown="down";
+		    if(gypos > (canvasheight-birdsize/2)) goblins[i].updown="up";
 		}
 }
 

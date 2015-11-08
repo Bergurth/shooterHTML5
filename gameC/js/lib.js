@@ -74,7 +74,7 @@ function Sprite(location, url, pos, size, speed, frames, dir, once, kind) {
     this.kind = 'horiz' || kind;
 };
 
-function GoblinSprite(location, url, pos, size, speed, frames, dir, once, kind, absloc){
+function GoblinSprite(location, url, pos, size, speed, frames, dir, once, kind, absloc, leftright, updown){
     this.pos = pos;
     this.size = size;
     this.speed = typeof speed === 'number' ? speed : 0;
@@ -88,6 +88,8 @@ function GoblinSprite(location, url, pos, size, speed, frames, dir, once, kind, 
     this.location = location;
     this.kind = kind;
     this.absloc = absloc; 
+    this.leftright = leftright;
+    this.updown = updown;
 };
 
 GoblinSprite.prototype.update = function(dt) {

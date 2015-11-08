@@ -86,6 +86,6 @@ laser.volume=0.1; // var alltof hátt
 
 var goblins = [];
 //goblins.push(new Sprite([birdxpos+18-xpos,birdypos+18-ypos],'../images/a.png', [0, 0], [33, 33], 0.5, [0, 1, 2, 1], 'front') );
-goblins.push(new GoblinSprite([birdxpos+18-xpos,birdypos+18-ypos],'../images/a.png', [0, 0], [33, 33], 0.5, [0, 1, 2, 1], 'front', undefined, 'vertical',[birdxpos,birdypos]) );
+goblins.push(new GoblinSprite([birdxpos+18-xpos,birdypos+18-ypos],'../images/a.png', [0, 0], [33, 33], 0.5, [0, 1, 2, 1], 'front', undefined, 'vertical',[birdxpos,birdypos], "left", "down") );
 
 playerSprite = new Sprite([fix_xpos,fix_ypos],'../images/trollhammer.png', [5, 0], [91, 125], 6, [0, 1, 2, 3, 2, 1], 'front');

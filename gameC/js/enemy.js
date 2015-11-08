@@ -21,6 +21,25 @@ function createRandomBird() {
 	else {
 		birdKind = "horiz";
 	}
+	var directionUD = Math.random()<0.5;
+	var updownG;
+	if (directionUD){
+		updownG = "up"
+	}
+	else {
+		updownG = "down"
+	}
+
+	var directionLR = Math.random()<0.5;
+	var leftRightG;
+	if (directionLR){
+		leftRightG = "left"
+	}
+	else {
+		leftRightG = "right"
+	}
+
+
 	var random = Math.floor(Math.random()*canvaswidth);
 	birdxpos=random;
 	random = Math.floor(Math.random()*canvasheight);
@@ -36,7 +55,7 @@ function createRandomBird() {
 	//goblins.push( new Sprite([birdxpos-56-xpos,birdypos-56-ypos],'../images/a.png', [0, 0], [33, 33], 0.5, [0, 1, 2, 1], 'front') );
 	//var gsprite = new Sprite([birdxpos+18-xpos,birdypos+18-ypos],'../images/a.png', [0, 0], [33, 33], 0.5, [0, 1, 2, 1], 'front');
 
-	goblins.push( new GoblinSprite([birdxpos+18-xpos,birdypos+18-ypos],'../images/a.png', [0, 0], [33, 33], 0.5, [0, 1, 2, 1], 'front', undefined, birdKind, [birdxpos, birdypos]) );
+	goblins.push( new GoblinSprite([birdxpos+18-xpos,birdypos+18-ypos],'../images/a.png', [0, 0], [33, 33], 0.5, [0, 1, 2, 1], 'front', undefined, birdKind, [birdxpos, birdypos],leftRightG,updownG) );
 
 	console.log(goblins);
 }
@@ -62,7 +81,7 @@ function drawBird() {
 		{
 			var goblin = goblins[i];
 		    if(goblin.kind === "horiz"){
-				if(leftright =="right") /* draw right goblin*/{
+				if(goblin.leftright =="right") /* draw right goblin*/{
 					//goblinSprite.dir = 'right';
 					goblin.dir = 'right'
 				}
@@ -72,7 +91,7 @@ function drawBird() {
 				}
 		    }
 		    else {
-				if(updown =="up") /* draw up goblin */{
+				if(goblin.updown =="up") /* draw up goblin */{
 					goblin.dir = 'back'
 					//goblinSprite.dir = 'back';
 				}
@@ -93,21 +112,21 @@ function moveBird() {
 		var random =Math.floor(Math.random()*45);
 		if(goblin.kind === "horiz"){
 	    
-			if(random == 5) updown = "up";
-			if(random == 6) updown = "down";
-			if(updown =="up") goblin.absloc[1] -= speed;
+			if(random == 5) goblin.updown = "up";
+			if(random == 6) goblin.updown = "down";
+			if(goblin.updown =="up") goblin.absloc[1] -= speed;
 			else goblin.absloc[1] += speed;
 
-			if(leftright =="right") goblin.absloc[0] += speed;
+			if(goblin.leftright =="right") goblin.absloc[0] += speed;
 			else goblin.absloc[0] -= speed;
 		}
 		else {
-			if(random == 5) leftright = "up";
-			if(random == 6) leftright = "down";
-			if(updown =="up") goblin.absloc[1] -= speed;
+			if(random == 5) goblin.leftright = "up";
+			if(random == 6) goblin.leftright = "down";
+			if(goblin.updown =="up") goblin.absloc[1] -= speed;
 			else goblin.absloc[1] += speed;
 
-			if(leftright =="right") goblin.absloc[0] += speed;
+			if(goblin.leftright =="right") goblin.absloc[0] += speed;
 			else goblin.absloc[0] -= speed;
 		}
 		//goblinSprite.location = [goblin.absloc[0]-16-xpos,goblin.absloc[1]-16-ypos];
