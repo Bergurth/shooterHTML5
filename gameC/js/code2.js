@@ -23,6 +23,8 @@ var lastTime;
 
 $(document).ready(function() {
 	music.play();
+	//var wheight = $(window).height();
+	//var wwidth = $(window).width();
 	
 	// layer1.width = $('.canvas-container').width();
 	layer1 = document.getElementById('layer1'); // ná canvas!
@@ -130,7 +132,7 @@ function gameLoop() {
 		updateBullets();
 
 		//adding new goblins
-		if(now % 6000 === 0){
+		if(now % 3000 === 0){
 			createRandomBird();
 		}
 

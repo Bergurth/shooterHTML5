@@ -4,8 +4,14 @@ var fps = 50;
 var refreshRate = 1000/fps;
 var speed = 100/fps;
 var countShotBirds = 0;
-var canvaswidth = 900; // we can use jquery to adjust this to user screen
-var canvasheight = 900; // 
+
+var wheight = $(window).height();
+var wwidth = $(window).width();
+//var canvaswidth = 900; // we can use jquery to adjust this to user screen
+//var canvasheight = 900; // 
+var canvaswidth = wwidth - wwidth/3; // 
+
+var canvasheight = wheight;
 
 //initial bird situation
 var birdxpos = 100;
