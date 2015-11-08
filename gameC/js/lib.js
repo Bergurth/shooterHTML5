@@ -59,7 +59,7 @@ function createsoundbite(sound){
 }
 
 
-function Sprite(location, url, pos, size, speed, frames, dir, once) {
+function Sprite(location, url, pos, size, speed, frames, dir, once, kind) {
     this.pos = pos;
     this.size = size;
     this.speed = typeof speed === 'number' ? speed : 0;
@@ -71,8 +71,71 @@ function Sprite(location, url, pos, size, speed, frames, dir, once) {
 	this.image = new Image();
 	this.image.src = url;
 	this.location = location;
+    this.kind = 'horiz' || kind;
 };
 
+function GoblinSprite(location, url, pos, size, speed, frames, dir, once, kind, absloc){
+    this.pos = pos;
+    this.size = size;
+    this.speed = typeof speed === 'number' ? speed : 0;
+    this.frames = frames;
+    this._index = 0;
+    this.url = url;
+    this.dir = dir || 'front';
+    this.once = once;
+    this.image = new Image();
+    this.image.src = url;
+    this.location = location;
+    this.kind = kind;
+    this.absloc = absloc; 
+};
+
+GoblinSprite.prototype.update = function(dt) {
+    this._index += this.speed*dt;
+}
+
+GoblinSprite.prototype.render = function(ctx) {
+    var frame;
+
+    if(this.speed > 0) {
+        var max = this.frames.length;
+        var idx = Math.floor(this._index);
+        frame = this.frames[idx % max];
+
+        if(this.once && idx >= max) {
+            this.done = true;
+            return;
+        }
+    }
+    else {
+        frame = 0;
+    }
+
+
+    var x = this.pos[0];
+    var y = this.pos[1];
+
+    if(this.dir == 'left') {
+        y = this.size[1];
+    }
+    else if(this.dir == 'right') {
+        y = this.size[1]*2;
+    }
+    else if(this.dir == 'back') {
+        y = this.size[1]*3;
+    }
+    else if(this.dir == 'front') {
+        y = 0;
+    }
+    
+    x += frame * this.size[0];
+    
+    ctx.drawImage(this.image,
+                  x, y,
+                  this.size[0], this.size[1],
+                  this.location[0], this.location[1],
+                  this.size[0], this.size[1]);
+}
 
 Sprite.prototype.update = function(dt) {
     this._index += this.speed*dt;
