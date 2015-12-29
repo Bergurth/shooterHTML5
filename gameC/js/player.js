@@ -9,23 +9,23 @@ function clearCharacter() {
 	
 function moveCharacter() {
 	var char_speed = 3;
-	if(keydown.left || keydown.a) {
+	if(keydown.left || keydown.a || keydown.n) {
         xpos -= char_speed;
 		playerSprite.dir = 'left';
     }	
-	if(keydown.right || keydown.d) {
+	if(keydown.right || keydown.d || keydown.u) {
         xpos += char_speed;
 		playerSprite.dir = 'right';
     }
-	if(keydown.down || keydown.s) {
+	if(keydown.down || keydown.s || keydown.r) {
         ypos += char_speed;
 		playerSprite.dir = 'front';
     }
-	if(keydown.up || keydown.w) {
+	if(keydown.up || keydown.w || keydown.g) {
         ypos -= char_speed;
 		playerSprite.dir = 'back';
     }
-	if (keydown.left || keydown.right || keydown.down || keydown.up || keydown.a || keydown.s || keydown.d || keydown.w) {
+	if (keydown.left || keydown.right || keydown.down || keydown.up || keydown.a || keydown.s || keydown.d || keydown.w || keydown.n|| keydown.g|| keydown.r|| keydown.u ) {
 		sh_player.charMoving = true;
 	}
 	else sh_player.charMoving = false;

@@ -89,6 +89,10 @@ function checkBulletsHit() {
 					sh_sidebar.writeGameState();
 									
 					createRandomBird();
+
+					if(countShotBirds % 3 === 0  && countShotBirds > 1){
+						createRandomBird();
+					}
 				}
 			}
 

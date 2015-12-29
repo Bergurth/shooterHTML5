@@ -22,7 +22,7 @@ var game_over = false;
 var lastTime;
 
 $(document).ready(function() {
-	music.play();
+	//music.play();
 	//var wheight = $(window).height();
 	//var wwidth = $(window).width();
 	
@@ -131,10 +131,13 @@ function gameLoop() {
 	   
 		updateBullets();
 
-		//adding new goblins
+		//adding new goblins 
+		/*
 		if(now % 3000 === 0){
 			createRandomBird();
 		}
+		*/
+		
 
 		goblinCollisionWithPlayer();
 		collisionWithWalls();
