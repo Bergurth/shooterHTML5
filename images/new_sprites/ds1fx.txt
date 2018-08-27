@@ -1,0 +1,5 @@
+Darkstalkers 1 General FX Sprites
+Ripped by felineki
+
+Axis is at X = 192, Y = 112.
+Burning character flame sprites (430.png-447.png) are at X = 192, Y = 192.
